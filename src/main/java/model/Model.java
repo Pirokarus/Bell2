@@ -1,5 +1,6 @@
 package model;
 
+import model.data.Base;
 import model.data.Contact;
 import model.data.Group;
 
@@ -49,6 +50,15 @@ public class Model extends Observable {                                //Кла�
 
     public void setGroupSet(Set<Group> groupSet) {
         this.groupSet = groupSet;
+        for (Observer outlet:this.observers){
+            outlet.update(this,true);
+        }
+    }
+
+    public void setModel(Base base){
+        this.contactSet = base.getContactSet();
+        this.groupSet = base.getGroupSet();
+
         for (Observer outlet:this.observers){
             outlet.update(this,true);
         }

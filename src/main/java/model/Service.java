@@ -24,7 +24,7 @@ public class Service {
         }
         if (base.getGroupSet() == null){
             base.setGroupSet(new HashSet<Group>());
-            Contact.setId_count(0);
+            Group.setId_count(0);
         }
         return base;
     }

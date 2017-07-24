@@ -15,8 +15,7 @@ public class DownloadController {
 
     public void downloadModelData(){
         Base base = service.downloadData();
-        model.setContactSet(base.getContactSet());
-        model.setGroupSet(base.getGroupSet());
+        model.setModel(base);
     }
 
     public void updateModelContactSet(Set<Contact> contactSet) {
