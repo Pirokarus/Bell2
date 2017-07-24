@@ -19,11 +19,11 @@ public class Service {
         Contact.setId_count(dao.getBase().getContactId());
         Group.setId_count(dao.getBase().getGroupId());
         if (base.getContactSet() == null){
-            base.setContactSet(new HashSet<>());
+            base.setContactSet(new HashSet<Contact>());
             Contact.setId_count(0);
         }
         if (base.getGroupSet() == null){
-            base.setGroupSet(new HashSet<>());
+            base.setGroupSet(new HashSet<Group>());
             Contact.setId_count(0);
         }
         return base;
