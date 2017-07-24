@@ -36,7 +36,6 @@ public class View implements Observer{
 
         while (true) {
             if(req == ViewEnum.l){                              //Команда выхода из программы
-                saveModel();
                 break;
             }
             else {
