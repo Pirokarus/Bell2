@@ -11,11 +11,11 @@ public class Contact extends Entity implements Serializable{           //Кла�
     private String firstName;
     private String lastName;
     private String number;
-    private Group group;
+    private Integer groupId = -1;
 
     {
-        id = id_count;
         ++id_count;
+        id = id_count;
     }
 
     public Contact(String firstName, String number) throws MyNotPhoneNumberException {
@@ -27,6 +27,15 @@ public class Contact extends Entity implements Serializable{           //Кла�
         this.firstName = firstName;
         this.lastName = lastName;
         setNumber(number);
+    }
+
+    public Contact(Integer id, String firstName, String lastName, String number, Integer groupId) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.number = number;
+        this.groupId = groupId;
+        --id_count;
     }
 
     public String getFirstName() {
@@ -59,12 +68,12 @@ public class Contact extends Entity implements Serializable{           //Кла�
         this.number = number;
     }
 
-    public Group getGroup() {
-        return group;
+    public Integer getGroupId() {
+        return groupId;
     }
 
-    public void setGroup(Group group) {
-        this.group = group;
+    public void setGroupId(Integer groupId) {
+        this.groupId = groupId;
     }
 
     public Integer getId() {
@@ -81,12 +90,12 @@ public class Contact extends Entity implements Serializable{           //Кла�
 
     @Override
     public String toString() {
-        return  "Индекс: " + id.toString() +
-                ", Имя: '" + firstName + '\'' +
-                ", Фамилия: '" + lastName + '\'' +
-                ", Номер: '" + number + '\'' +
-                ", Группа: " + group + "\n";
+        return "Contact{" +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", number='" + number + '\'' +
+                ", groupId=" + groupId +
+                '}';
     }
-
-
 }

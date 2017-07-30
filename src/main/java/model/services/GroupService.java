@@ -1,0 +1,93 @@
+package model.services;
+
+import model.dao.AbstractGroupDAO;
+import factory.DAOFactory;
+import model.dao.DAOTypes;
+import model.data.Group;
+import org.xml.sax.SAXException;
+
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.TransformerException;
+import javax.xml.xpath.XPathExpressionException;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.*;
+
+public class GroupService extends Observable implements AbstractGroupDAO {
+
+    private static GroupService service = new GroupService();
+    private List<Observer> observers = new ArrayList<Observer>();
+
+    private GroupService(){}
+
+    public static GroupService getInstance(){return service;}
+
+    private AbstractGroupDAO groupDAO;
+
+    {
+        ClassLoader classLoader = getClass().getClassLoader();
+        String path = classLoader.getResource("daotype.properties").getFile();
+        try {
+            FileInputStream fis = new FileInputStream(path);
+            Properties properties = new Properties();
+            properties.load(fis);
+            DAOTypes daoTypes = DAOTypes.valueOf(properties.getProperty("dao"));
+            groupDAO = DAOFactory.getGroupDAO(daoTypes);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void save(Group group) throws ParserConfigurationException, IOException,
+            SAXException, TransformerException {
+        groupDAO.save(group);
+        updateEvent();
+    }
+
+    @Override
+    public void remove(Group group) throws ParserConfigurationException, IOException,
+            SAXException, XPathExpressionException, TransformerException {
+        groupDAO.remove(group);
+        updateEvent();
+    }
+
+    @Override
+    public void removeById(int id) throws ParserConfigurationException, IOException,
+            SAXException, XPathExpressionException, TransformerException {
+        groupDAO.removeById(id);
+        updateEvent();
+    }
+
+    @Override
+    public void update(Group group, int id) throws ParserConfigurationException, IOException,
+            SAXException, XPathExpressionException, TransformerException {
+        groupDAO.update(group,id);
+        updateEvent();
+    }
+
+    @Override
+    public Set<Group> getAll() throws Exception {
+        return groupDAO.getAll();
+    }
+
+    @Override
+    public Group getById(int id) throws Exception {
+        return groupDAO.getById(id);
+    }
+
+    public void updateEvent(){
+        for (Observer outlet:this.observers){
+            outlet.update(this,true);
+        }
+    }
+
+    public void register(Observer outlet) {
+
+        observers.add(outlet);
+
+    }
+}

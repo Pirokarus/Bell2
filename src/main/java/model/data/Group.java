@@ -9,12 +9,18 @@ public class Group extends Entity implements Serializable{             //Кла�
     private String name;
 
     {
-        id = id_count;
         ++id_count;
+        id = id_count;
     }
 
     public Group(String name) {
         this.name = name;
+    }
+
+    public Group(Integer id, String name) {
+        this.id = id;
+        this.name = name;
+        --id_count;
     }
 
     public String getName() {

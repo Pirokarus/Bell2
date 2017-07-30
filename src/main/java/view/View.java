@@ -3,39 +3,44 @@ package view;
 import controllers.DownloadController;
 import exceptions.MyNotPhoneNumberException;
 import factory.EntityFactory;
-import model.Model;
 import model.data.Contact;
 import model.data.Group;
+import model.services.ContactService;
+import model.services.GroupService;
+import org.xml.sax.SAXException;
 
+
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.xpath.XPathExpressionException;
+import java.io.IOException;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.Scanner;
-import java.util.Set;
 
 public class View implements Observer{
 
     //private Model model;
 
-    private Set<Contact> contactSet;
-    private Set<Group> groupSet;
+    //private Set<Contact> contactSet;
+    //private Set<Group> groupSet;
     private DownloadController controller = new DownloadController();
     private EntityFactory entityFactory = new EntityFactory();
 
-    public void start(){
+    /*public void start(){
         controller.downloadModelData();
-    }
+    }*/
 
     public void update(Observable model, Object bool){          //Основная функция визуализации
 
         //model = new Model();                                    //Инициализация модели
-        contactSet = Model.getInstance().getContactSet();
-        groupSet = Model.getInstance().getGroupSet();
+        //contactSet = Model.getInstance().getContactSet();
+        //groupSet = Model.getInstance().getGroupSet();
 
         Scanner in = new Scanner(System.in);
-        ViewEnum req = ViewEnum.o;                              //Инициализация перечиления команд
+        RequestEnum req = RequestEnum.o;                              //Инициализация перечиления команд
 
         while (true) {
-            if(req == ViewEnum.l){                              //Команда выхода из программы
+            if(req == RequestEnum.l){                              //Команда выхода из программы
                 break;
             }
             else {
@@ -55,87 +60,193 @@ public class View implements Observer{
                                 "j Удаление группы\n" +
                                 "k Редактирование группы\n" +
                                 "l Выйти");
-                        req = ViewEnum.valueOf(in.nextLine());
+                        req = RequestEnum.valueOf(in.nextLine());
                         break;
 
                     case a:                                     //Команда добавления контакта
 
                         addContact();
-                        req = ViewEnum.o;
-                        saveModel();
+                        req = RequestEnum.o;
+                        //saveModel();
                         continue;
 
                     case b:                                     //Команда редактирования контакта
 
                         redContact();
-                        req = ViewEnum.o;
-                        saveModel();
+                        req = RequestEnum.o;
+                        //saveModel();
                         continue;
 
                     case c:                                     //Команда удаления контакта
 
-                        delContact();
-                        req = ViewEnum.o;
-                        saveModel();
+                        try {
+                            delContact();
+                        } catch (ParserConfigurationException e) {
+                            e.printStackTrace();
+                        } catch (MyNotPhoneNumberException e) {
+                            e.printStackTrace();
+                        } catch (SAXException e) {
+                            e.printStackTrace();
+                        } catch (XPathExpressionException e) {
+                            e.printStackTrace();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                        req = RequestEnum.o;
+                        //saveModel();
                         continue;
 
                     case d:                                     //Команда назначения группы контакту
 
-                        addContactGroup();
-                        req = ViewEnum.o;
-                        saveModel();
+                        try {
+                            addContactGroup();
+                        } catch (ParserConfigurationException e) {
+                            e.printStackTrace();
+                        } catch (MyNotPhoneNumberException e) {
+                            e.printStackTrace();
+                        } catch (SAXException e) {
+                            e.printStackTrace();
+                        } catch (XPathExpressionException e) {
+                            e.printStackTrace();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                        req = RequestEnum.o;
+                        //saveModel();
                         continue;
 
                     case e:                                     //Команда удаления группы у контакта
 
-                        delContactGroup();
-                        req = ViewEnum.o;
-                        saveModel();
+                        try {
+                            delContactGroup();
+                        } catch (ParserConfigurationException e) {
+                            e.printStackTrace();
+                        } catch (MyNotPhoneNumberException e) {
+                            e.printStackTrace();
+                        } catch (SAXException e) {
+                            e.printStackTrace();
+                        } catch (XPathExpressionException e) {
+                            e.printStackTrace();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                        req = RequestEnum.o;
+                        //saveModel();
                         continue;
 
                     case f:                                     //Команда отображения всех контактов
 
-                        System.out.println(contactSet);
-                        req = ViewEnum.o;
+                        try {
+                            System.out.println(ContactService.getInstance().getAll());
+                        } catch (ParserConfigurationException e) {
+                            e.printStackTrace();
+                        } catch (MyNotPhoneNumberException e) {
+                            e.printStackTrace();
+                        } catch (SAXException e) {
+                            e.printStackTrace();
+                        } catch (XPathExpressionException e) {
+                            e.printStackTrace();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                        req = RequestEnum.o;
                         continue;
 
                     case g:                                     //Команда отображения контактов определённой группы
-                        showGroupContact();
-                        req = ViewEnum.o;
+                        try {
+                            showGroupContact();
+                        } catch (ParserConfigurationException e) {
+                            e.printStackTrace();
+                        } catch (SAXException e) {
+                            e.printStackTrace();
+                        } catch (XPathExpressionException e) {
+                            e.printStackTrace();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        } catch (MyNotPhoneNumberException e) {
+                            e.printStackTrace();
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                        req = RequestEnum.o;
                         continue;
 
                     case h:                                     //Команда отображения всех групп
 
-                        System.out.println(groupSet);
-                        req = ViewEnum.o;
+                        try {
+                            System.out.println(GroupService.getInstance().getAll());
+                        } catch (ParserConfigurationException e) {
+                            e.printStackTrace();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        } catch (SAXException e) {
+                            e.printStackTrace();
+                        } catch (XPathExpressionException e) {
+                            e.printStackTrace();
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                        req = RequestEnum.o;
                         continue;
 
                     case i:                                     //Команда добавления новой группы
 
                         addGroup();
-                        req = ViewEnum.o;
-                        saveModel();
+                        req = RequestEnum.o;
+                        //saveModel();
                         continue;
 
                     case j:                                     //Команда удаления группы
 
-                        delGroup();
-                        req = ViewEnum.o;
-                        saveModel();
+                        try {
+                            delGroup();
+                        } catch (ParserConfigurationException e) {
+                            e.printStackTrace();
+                        } catch (SAXException e) {
+                            e.printStackTrace();
+                        } catch (XPathExpressionException e) {
+                            e.printStackTrace();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                        req = RequestEnum.o;
+                        //saveModel();
                         continue;
 
                     case k:                                     //Команда редактирования группы
 
-                        redGroup();
-                        req = ViewEnum.o;
-                        saveModel();
+                        try {
+                            redGroup();
+                        } catch (ParserConfigurationException e) {
+                            e.printStackTrace();
+                        } catch (SAXException e) {
+                            e.printStackTrace();
+                        } catch (XPathExpressionException e) {
+                            e.printStackTrace();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                        req = RequestEnum.o;
+                        //saveModel();
                         continue;
                 }
             }
         }
     }
 
-    public void addContact(){                                   //Функция добавления контакта
+    public void addContact() {                                   //Функция добавления контакта
 
         try {                                                   //Проверка кастомного исключения на проверку на номер телефона
             Scanner in = new Scanner(System.in);
@@ -145,10 +256,9 @@ public class View implements Observer{
             String lustName = in.nextLine();
             System.out.print("Введите номер: ");
             String number = in.nextLine();
-            contactSet.add((Contact) entityFactory.getEntity(name, lustName, number));
-            controller.updateModelContactSet(contactSet);
+            controller.addContact((Contact) entityFactory.getEntity(name, lustName, number));
         }
-        catch (MyNotPhoneNumberException e){
+        catch (Exception e){
             System.out.println("Введите корректный номер");
         }
     }
@@ -159,7 +269,7 @@ public class View implements Observer{
 
             Scanner in = new Scanner(System.in);
             System.out.print("Выберите индекс контакта: ");
-            System.out.println(contactSet);
+            System.out.println(ContactService.getInstance().getAll());
             int id = in.nextInt();
             String next = in.nextLine();
             System.out.print("Введите имя: ");
@@ -169,92 +279,103 @@ public class View implements Observer{
             System.out.print("Введите номер: ");
             String number = in.nextLine();
 
-            for (Contact contact : contactSet) {
+            for (Contact contact : ContactService.getInstance().getAll()) {
                 if (id == contact.getId()) {
                     contact.setFirstName(name);
                     contact.setLastName(lustName);
                     contact.setNumber(number);
+                    controller.updateContact(contact, id);
                 }
             }
-            controller.updateModelContactSet(contactSet);
+
         }
         catch (MyNotPhoneNumberException e){
             System.out.println("Введите корректный номер");
+        } catch (SAXException e) {
+            e.printStackTrace();
+        } catch (XPathExpressionException e) {
+            e.printStackTrace();
+        } catch (ParserConfigurationException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
-    public void delContact(){                                   //Функция удаления контакта
+    public void delContact() throws Exception {                                   //Функция удаления контакта
 
         Scanner in = new Scanner(System.in);
-        System.out.println(contactSet);
+        System.out.println(ContactService.getInstance().getAll());
         System.out.print("Выберите индекс контакта: ");
 
         int id = in.nextInt();
 
-        Contact rContact = null;
-
-        for (Contact contact:contactSet){
-            if(id == contact.getId()){
-                rContact = contact;
-            }
-        }
-        if (rContact != null) {
-            contactSet.remove(rContact);
-        }
-        controller.updateModelContactSet(contactSet);
+        controller.deliteContact(id);
     }
 
-    public void addContactGroup(){                              //Функция назначения группы контакту
+    public void addContactGroup() throws Exception {                              //Функция назначения группы контакту
 
         Scanner in = new Scanner(System.in);
-        System.out.println(contactSet);
+        System.out.println(ContactService.getInstance().getAll());
         System.out.print("Выберите индекс контакта: ");
 
         int idC = in.nextInt();
-        System.out.println(groupSet);
+        System.out.println(GroupService.getInstance().getAll());
         System.out.print("Выберите индекс группы: ");
 
         int idG = in.nextInt();
 
-        for (Contact contact:contactSet){
-            if (contact.getId() == idC){
-                for (Group group:groupSet){
-                    if(group.getId() == idG){
-                        contact.setGroup(group);
+        try {
+            for (Contact contact : ContactService.getInstance().getAll()) {
+                if (contact.getId() == idC) {
+                    for (Group group : GroupService.getInstance().getAll()) {
+                        if (group.getId() == idG) {
+                            contact.setGroupId(idG);
+                            controller.updateContact(contact, idC);
+                        }
                     }
                 }
             }
         }
-        controller.updateModelContactSet(contactSet);
+        catch (MyNotPhoneNumberException e){
+
+        }
+
     }
 
-    public void delContactGroup(){                              //Функция удаления группы у контакта
+    public void delContactGroup() throws Exception {                              //Функция удаления группы у контакта
 
         Scanner in = new Scanner(System.in);
-        System.out.println(contactSet);
+        System.out.println(ContactService.getInstance().getAll());
         System.out.print("Выберите индекс контакта: ");
 
         int id = in.nextInt();
 
-        for (Contact contact:contactSet){
+        for (Contact contact :ContactService.getInstance().getAll()){
             if (contact.getId() == id){
-                contact.setGroup(null);
+                contact.setGroupId(-1);
+                try {
+                    controller.updateContact(contact,id);
+                } catch (MyNotPhoneNumberException e) {
+
+                }
             }
         }
-        controller.updateModelContactSet(contactSet);
     }
 
-    public void showGroupContact(){                             //Функция отображения всех контактов заданной группы
+    public void showGroupContact() throws Exception {                             //Функция отображения всех контактов заданной группы
 
         Scanner in = new Scanner(System.in);
-        System.out.println(groupSet);
+        System.out.println(GroupService.getInstance().getAll());
         System.out.print("Выберите индекс группы: ");
 
         int idG = in.nextInt();
 
-        for (Contact contact:contactSet){
-            if(contact.getGroup() != null) {
-                if (contact.getGroup().getId() == idG){
+        for (Contact contact :ContactService.getInstance().getAll()){
+            if(contact.getGroupId() != -1) {
+                if (contact.getGroupId() == idG){
                     System.out.println(contact);
                 }
             }
@@ -266,53 +387,39 @@ public class View implements Observer{
         Scanner in = new Scanner(System.in);
         System.out.print("Введите название: ");
         String name = in.nextLine();
-        groupSet.add((Group)entityFactory.getEntity(name));
-        controller.updateModelGroupSet(groupSet);
+        controller.addGroup((Group)entityFactory.getEntity(name));
     }
 
-    public void delGroup(){                                     //Функция удаления группы
+    public void delGroup() throws Exception {                                     //Функция удаления группы
 
         Scanner in = new Scanner(System.in);
-        System.out.println(groupSet);
+        System.out.println(GroupService.getInstance().getAll());
         System.out.print("Выберите индекс группы: ");
         int id = in.nextInt();
 
-        for (Group group:groupSet){
-            if (group.getId() == id){
-                groupSet.remove(group);
-            }
-        }
-
-        for (Contact contact:contactSet){
-            if(contact.getGroup() != null) {
-                if (contact.getGroup().getId() == id) {
-                    contact.setGroup(null);
-                }
-            }
-        }
-        controller.updateModelContactSet(contactSet);
-        controller.updateModelGroupSet(groupSet);
+        controller.deliteGroup(id);
     }
 
-    public void redGroup(){                                     //Функция редактирования группы
+    public void redGroup() throws Exception {                                     //Функция редактирования группы
 
         Scanner in = new Scanner(System.in);
-        System.out.println(groupSet);
+        System.out.println(GroupService.getInstance().getAll());
         System.out.print("Выберите индекс группы: ");
         int id = in.nextInt();
         System.out.println("Выберите название: ");
         String name = in.nextLine();
 
-        for (Group group:groupSet){
+        for (Group group:GroupService.getInstance().getAll()){
             if (group.getId() == id){
                 group.setName(name);
+                controller.updateGroup(group,id);
             }
         }
-        controller.updateModelGroupSet(groupSet);
     }
 
+    /*
     public void saveModel(){                                    //Функция сохранения модели в файл
 
         controller.save();
-    }
+    }*/
 }

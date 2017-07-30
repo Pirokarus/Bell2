@@ -6,15 +6,23 @@ import model.data.Entity;
 import model.data.Group;
 
 public class EntityFactory {
-    public Entity getEntity(String name){
+    public static Entity getEntity(String name){
         return new Group(name);
     }
 
-    public Entity getEntity(String firstName, String number) throws MyNotPhoneNumberException {
+    public static Entity getEntity(int id, String name){
+        return new Group(id, name);
+    }
+
+    public static Entity getEntity(String firstName, String number) throws MyNotPhoneNumberException {
         return new Contact(firstName, number);
     }
 
-    public Entity getEntity(String firstName, String lastName, String number) throws MyNotPhoneNumberException {
+    public static Entity getEntity(String firstName, String lastName, String number) throws MyNotPhoneNumberException {
         return new Contact(firstName, lastName, number);
+    }
+
+    public static Entity getEntity(int id, String firstName, String lastName, String number, int groupId) throws MyNotPhoneNumberException {
+        return new Contact(id, firstName, lastName, number, groupId);
     }
 }
