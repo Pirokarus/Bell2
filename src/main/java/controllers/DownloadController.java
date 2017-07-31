@@ -17,7 +17,12 @@ public class DownloadController {
     ContactService contactService = ContactService.getInstance();
     GroupService groupService = GroupService.getInstance();
 
-
+    /**
+     * Метод добавления контакта
+     * @param contact
+     * @throws TransformerException
+     * @throws ParserConfigurationException
+     */
     public void addContact(Contact contact) throws TransformerException, ParserConfigurationException {
         try {
             contactService.save(contact);
@@ -26,6 +31,12 @@ public class DownloadController {
         }
     }
 
+    /**
+     * Метод обновляет контакт
+     * @param contact
+     * @param id
+     * @throws MyNotPhoneNumberException
+     */
     public void updateContact(Contact contact, int id) throws MyNotPhoneNumberException{
         try {
             contactService.update(contact, id);
@@ -34,6 +45,10 @@ public class DownloadController {
         }
     }
 
+    /**
+     * Метод удаляет контакт по id
+     * @param id
+     */
     public void deliteContact(int id){
         try {
             contactService.removeById(id);
@@ -42,6 +57,10 @@ public class DownloadController {
         }
     }
 
+    /**
+     * Метод добавляет новую группу
+     * @param group
+     */
     public void addGroup(Group group){
         try {
             groupService.save(group);
@@ -50,6 +69,10 @@ public class DownloadController {
         }
     }
 
+    /**
+     * Метод удаляет группу по id
+     * @param id
+     */
     public void deliteGroup(int id){
         try {
             groupService.removeById(id);
@@ -58,6 +81,11 @@ public class DownloadController {
         }
     }
 
+    /**
+     * Метод обновляет группу
+     * @param group
+     * @param id
+     */
     public void updateGroup(Group group, int id){
         try {
             groupService.update(group,id);
