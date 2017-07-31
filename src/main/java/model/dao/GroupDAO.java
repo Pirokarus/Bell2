@@ -11,10 +11,10 @@ import java.io.IOException;
 import java.util.Set;
 
 public interface GroupDAO {
-    void save(Group group) throws ParserConfigurationException, IOException, SAXException, TransformerException;
-    void remove(Group group) throws ParserConfigurationException, IOException, SAXException, XPathExpressionException, TransformerException;
-    void removeById(int id) throws ParserConfigurationException, IOException, SAXException, XPathExpressionException, TransformerException;
-    void update(Group group, int id) throws ParserConfigurationException, IOException, SAXException, XPathExpressionException, TransformerException;
+    void save(Group group) throws Exception;
+    void remove(Group group) throws Exception;
+    void removeById(int id) throws Exception;
+    void update(Group group, int id) throws Exception;
     Set<Group> getAll() throws Exception;
     Group getById(int id) throws Exception;
 }

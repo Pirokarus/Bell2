@@ -30,12 +30,18 @@ public class JacksonGroup {
     public JacksonGroup() {
     }
 
+    /*
     public JacksonGroup(Group group){
         this.id = group.getId();
         this.name = group.getName();
+    }*/
+
+    public JacksonGroup(Integer id, String name) {
+        this.id = id;
+        this.name = name;
     }
 
-    public Group getGroup(){
+    /*public Group getGroup(){
         return (Group) EntityFactory.getEntity(id,name);
-    }
+    }*/
 }

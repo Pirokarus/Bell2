@@ -46,20 +46,17 @@ public class ContactService extends Observable implements AbstractContactService
         updateEvent();
     }
 
-    public void remove(Contact contact) throws TransformerException, XPathExpressionException,
-            ParserConfigurationException, IOException, SAXException {
+    public void remove(Contact contact) throws Exception {
         contactDAO.remove(contact);
         updateEvent();
     }
 
-    public void removeById(int id) throws ParserConfigurationException, IOException, SAXException,
-            XPathExpressionException, TransformerException {
+    public void removeById(int id) throws Exception {
         contactDAO.removeById(id);
         updateEvent();
     }
 
-    public void update(Contact contact, int id) throws ParserConfigurationException, IOException,
-            SAXException, XPathExpressionException, TransformerException {
+    public void update(Contact contact, int id) throws Exception {
 
         contactDAO.update(contact,id);
         updateEvent();

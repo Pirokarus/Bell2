@@ -3,6 +3,7 @@ package model.data.Jackson;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlElementWrapper;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
+import factory.EntityFactory;
 import model.data.Group;
 
 import java.util.HashSet;
@@ -32,7 +33,7 @@ public class JacksonGroupSet {
 
         int i = 0;
         for (Group group : groupSet){
-            this.groups[i] = new JacksonGroup(group);
+            this.groups[i] = new JacksonGroup(group.getId(),group.getName());
             ++i;
         }
     }
@@ -40,8 +41,10 @@ public class JacksonGroupSet {
     public Set<Group> toGroupSet(){
         Set<Group> out = new HashSet<Group>();
 
-        for(int i = 0; i<this.groups.length; ++i){
-            out.add(this.groups[i].getGroup());
+        if (this.groups!=null) {
+            for (int i = 0; i < this.groups.length; ++i) {
+                out.add((Group) EntityFactory.getEntity(this.groups[i].getId(), this.groups[i].getName()));
+            }
         }
         return out;
     }

@@ -12,9 +12,9 @@ import java.util.Set;
 
 public interface AbstractContactService {
     void save(Contact contact) throws Exception;
-    void remove(Contact contact) throws TransformerException, XPathExpressionException, ParserConfigurationException, IOException, SAXException;
-    void removeById(int id) throws ParserConfigurationException, IOException, SAXException, XPathExpressionException, TransformerException;
-    void update(Contact contact, int id) throws ParserConfigurationException, IOException, SAXException, XPathExpressionException, TransformerException;
+    void remove(Contact contact) throws Exception;
+    void removeById(int id) throws Exception;
+    void update(Contact contact, int id) throws Exception;
     Set<Contact> getAll() throws Exception;
     Contact getById(int id) throws Exception;
 }

@@ -4,6 +4,7 @@ import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlElementWrapper;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
 import exceptions.MyNotPhoneNumberException;
+import factory.EntityFactory;
 import model.data.Contact;
 
 import java.util.HashSet;
@@ -32,7 +33,8 @@ public class JacksonContactSet {
 
         int i = 0;
         for (Contact contact : contactSet){
-            this.contacts[i] = new JacksonContact(contact);
+            this.contacts[i] = new JacksonContact(contact.getId(),contact.getFirstName(),
+                    contact.getLastName(),contact.getNumber(),contact.getGroupId());
             ++i;
         }
     }
@@ -40,8 +42,11 @@ public class JacksonContactSet {
     public Set<Contact> toContactSet() throws MyNotPhoneNumberException {
         Set<Contact> out = new HashSet<Contact>();
 
-        for(int i = 0; i<this.contacts.length; ++i){
-            out.add(this.contacts[i].getContact());
+        if (this.contacts!=null) {
+            for (int i = 0; i < this.contacts.length; ++i) {
+                out.add((Contact)EntityFactory.getEntity(this.contacts[i].getId(),this.contacts[i].getFirstName(),
+                        this.contacts[i].getLastName(),this.contacts[i].getNumber(),this.contacts[i].getGroupId()));
+            }
         }
         return out;
     }

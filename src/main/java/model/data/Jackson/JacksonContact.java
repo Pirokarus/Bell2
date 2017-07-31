@@ -66,16 +66,26 @@ public class JacksonContact {
         this.groupId = groupId;
     }
 
+    /*
     public JacksonContact(Contact contact){
         this.id = contact.getId();
         this.firstName = contact.getFirstName();
         this.lastName = contact.getLastName();
         this.number = contact.getNumber();
         this.groupId = contact.getGroupId();
+    }*/
+
+    public JacksonContact(Integer id, String firstName, String lastName, String number, Integer groupId) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.number = number;
+        this.groupId = groupId;
     }
 
+    /*
     public Contact getContact() throws MyNotPhoneNumberException {
         return (Contact) EntityFactory.getEntity(id,firstName,lastName,number,getGroupId());
-    }
+    }*/
 
 }

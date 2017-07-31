@@ -42,29 +42,25 @@ public class GroupService extends Observable implements GroupDAO {
     }
 
     @Override
-    public void save(Group group) throws ParserConfigurationException, IOException,
-            SAXException, TransformerException {
+    public void save(Group group) throws Exception {
         groupDAO.save(group);
         updateEvent();
     }
 
     @Override
-    public void remove(Group group) throws ParserConfigurationException, IOException,
-            SAXException, XPathExpressionException, TransformerException {
+    public void remove(Group group) throws Exception {
         groupDAO.remove(group);
         updateEvent();
     }
 
     @Override
-    public void removeById(int id) throws ParserConfigurationException, IOException,
-            SAXException, XPathExpressionException, TransformerException {
+    public void removeById(int id) throws Exception {
         groupDAO.removeById(id);
         updateEvent();
     }
 
     @Override
-    public void update(Group group, int id) throws ParserConfigurationException, IOException,
-            SAXException, XPathExpressionException, TransformerException {
+    public void update(Group group, int id) throws Exception {
         groupDAO.update(group,id);
         updateEvent();
     }
