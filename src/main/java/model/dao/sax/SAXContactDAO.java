@@ -1,7 +1,9 @@
-package model.dao;
+package model.dao.sax;
 
 import exceptions.MyNotPhoneNumberException;
 import factory.EntityFactory;
+import model.dao.ContactDAO;
+import model.dao.MyValidator;
 import model.data.Contact;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
@@ -16,7 +18,7 @@ import java.io.IOException;
 import java.util.HashSet;
 import java.util.Set;
 
-public class SAXContactDAO implements AbstractContactDAO {
+public class SAXContactDAO implements ContactDAO {
     @Override
     public void save(Contact contact) throws Exception {
 

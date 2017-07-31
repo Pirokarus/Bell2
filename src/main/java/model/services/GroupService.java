@@ -1,6 +1,6 @@
 package model.services;
 
-import model.dao.AbstractGroupDAO;
+import model.dao.GroupDAO;
 import factory.DAOFactory;
 import model.dao.DAOTypes;
 import model.data.Group;
@@ -14,7 +14,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.*;
 
-public class GroupService extends Observable implements AbstractGroupDAO {
+public class GroupService extends Observable implements GroupDAO {
 
     private static GroupService service = new GroupService();
     private List<Observer> observers = new ArrayList<Observer>();
@@ -23,7 +23,7 @@ public class GroupService extends Observable implements AbstractGroupDAO {
 
     public static GroupService getInstance(){return service;}
 
-    private AbstractGroupDAO groupDAO;
+    private GroupDAO groupDAO;
 
     {
         ClassLoader classLoader = getClass().getClassLoader();

@@ -1,6 +1,7 @@
-package model.dao;
+package model.dao.dom;
 
 import factory.EntityFactory;
+import model.dao.GroupDAO;
 import model.data.Group;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -26,17 +27,14 @@ import java.io.IOException;
 import java.util.HashSet;
 import java.util.Set;
 
-public class DOMGroupDAO implements AbstractGroupDAO {
+public class DOMGroupDAO implements GroupDAO {
 
     @Override
     public void save(Group group) throws ParserConfigurationException, IOException, SAXException, TransformerException {
-        ClassLoader classLoader = getClass().getClassLoader();
-        String xmlPath = classLoader.getResource("Groups.xml").getFile();
 
-        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-        DocumentBuilder builder = factory.newDocumentBuilder();
+        String xmlPath = getXmlPath();
 
-        Document document = builder.parse(new File(xmlPath));
+        Document document = getDocument(xmlPath);
 
         Node root = document.getFirstChild();
 
@@ -51,26 +49,16 @@ public class DOMGroupDAO implements AbstractGroupDAO {
         firstName.appendChild(document.createTextNode(group.getName()));
         groupEl.appendChild(firstName);
 
-        TransformerFactory transformerFactory = TransformerFactory.newInstance();
-        Transformer transformer = transformerFactory.newTransformer();
-        DOMSource domSource = new DOMSource(document);
-
-        StreamResult streamResult = new StreamResult(new File(xmlPath));
-
-        transformer.transform(domSource, streamResult);
+        saveDocument(document,xmlPath);
 
     }
 
     @Override
     public void remove(Group group) throws ParserConfigurationException, IOException, SAXException, XPathExpressionException, TransformerException {
 
-        ClassLoader classLoader = getClass().getClassLoader();
-        String xmlPath = classLoader.getResource("Groups.xml").getFile();
+        String xmlPath = getXmlPath();
 
-        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-        DocumentBuilder builder = factory.newDocumentBuilder();
-
-        Document document = builder.parse(new File(xmlPath));
+        Document document = getDocument(xmlPath);
 
         XPath xPath = XPathFactory.newInstance().newXPath();
 
@@ -136,25 +124,16 @@ public class DOMGroupDAO implements AbstractGroupDAO {
             e.appendChild(groupId);
         }
 
-        TransformerFactory transformerFactory1 = TransformerFactory.newInstance();
-        Transformer transformer1 = transformerFactory1.newTransformer();
-        DOMSource domSource1 = new DOMSource(document1);
-
-        StreamResult streamResult1 = new StreamResult(new File(xmlPath1));
-
-        transformer1.transform(domSource1, streamResult1);
+        saveDocument(document,xmlPath);
 
     }
 
     @Override
     public void removeById(int id) throws ParserConfigurationException, IOException, SAXException, XPathExpressionException, TransformerException {
-        ClassLoader classLoader = getClass().getClassLoader();
-        String xmlPath = classLoader.getResource("Groups.xml").getFile();
 
-        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-        DocumentBuilder builder = factory.newDocumentBuilder();
+        String xmlPath = getXmlPath();
 
-        Document document = builder.parse(new File(xmlPath));
+        Document document = getDocument(xmlPath);
 
         XPath xPath = XPathFactory.newInstance().newXPath();
 
@@ -165,22 +144,12 @@ public class DOMGroupDAO implements AbstractGroupDAO {
 
         root.removeChild(node);
 
-        TransformerFactory transformerFactory = TransformerFactory.newInstance();
-        Transformer transformer = transformerFactory.newTransformer();
-        DOMSource domSource = new DOMSource(document);
-
-        StreamResult streamResult = new StreamResult(new File(xmlPath));
-
-        transformer.transform(domSource, streamResult);
-
+        saveDocument(document,xmlPath);
 
         ClassLoader classLoader1 = getClass().getClassLoader();
         String xmlPath1 = classLoader1.getResource("Contacts.xml").getFile();
 
-        DocumentBuilderFactory factory1 = DocumentBuilderFactory.newInstance();
-        DocumentBuilder builder1 = factory1.newDocumentBuilder();
-
-        Document document1 = builder1.parse(new File(xmlPath1));
+        Document document1 = getDocument(xmlPath1);
 
         XPath xPath1 = XPathFactory.newInstance().newXPath();
 
@@ -220,24 +189,15 @@ public class DOMGroupDAO implements AbstractGroupDAO {
             e.appendChild(groupId);
         }
 
-        TransformerFactory transformerFactory1 = TransformerFactory.newInstance();
-        Transformer transformer1 = transformerFactory1.newTransformer();
-        DOMSource domSource1 = new DOMSource(document1);
-
-        StreamResult streamResult1 = new StreamResult(new File(xmlPath1));
-
-        transformer1.transform(domSource1, streamResult1);
+        saveDocument(document1,xmlPath1);
     }
 
     @Override
     public void update(Group group, int id) throws ParserConfigurationException, IOException, SAXException, XPathExpressionException, TransformerException {
-        ClassLoader classLoader = getClass().getClassLoader();
-        String xmlPath = classLoader.getResource("Groups.xml").getFile();
 
-        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-        DocumentBuilder builder = factory.newDocumentBuilder();
+        String xmlPath = getXmlPath();
 
-        Document document = builder.parse(new File(xmlPath));
+        Document document = getDocument(xmlPath);
 
         XPath xPath = XPathFactory.newInstance().newXPath();
 
@@ -259,24 +219,15 @@ public class DOMGroupDAO implements AbstractGroupDAO {
         name.appendChild(document.createTextNode(group.getName()));
         contactEl.appendChild(name);
 
-        TransformerFactory transformerFactory = TransformerFactory.newInstance();
-        Transformer transformer = transformerFactory.newTransformer();
-        DOMSource domSource = new DOMSource(document);
-
-        StreamResult streamResult = new StreamResult(new File(xmlPath));
-
-        transformer.transform(domSource, streamResult);
+        saveDocument(document,xmlPath);
     }
 
     @Override
     public Set<Group> getAll() throws ParserConfigurationException, IOException, SAXException, XPathExpressionException {
-        ClassLoader classLoader = getClass().getClassLoader();
-        String xmlPath = classLoader.getResource("Groups.xml").getFile();
 
-        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-        DocumentBuilder builder = factory.newDocumentBuilder();
+        String xmlPath = getXmlPath();
 
-        Document document = builder.parse(new File(xmlPath));
+        Document document = getDocument(xmlPath);
 
         XPath xPath = XPathFactory.newInstance().newXPath();
 
@@ -313,13 +264,10 @@ public class DOMGroupDAO implements AbstractGroupDAO {
 
     @Override
     public Group getById(int id) throws ParserConfigurationException, IOException, SAXException, XPathExpressionException {
-        ClassLoader classLoader = getClass().getClassLoader();
-        String xmlPath = classLoader.getResource("Groups.xml").getFile();
 
-        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-        DocumentBuilder builder = factory.newDocumentBuilder();
+        String xmlPath = getXmlPath();
 
-        Document document = builder.parse(new File(xmlPath));
+        Document document = getDocument(xmlPath);
 
         XPath xPath = XPathFactory.newInstance().newXPath();
 
@@ -334,5 +282,29 @@ public class DOMGroupDAO implements AbstractGroupDAO {
         String name = paramList.item(1).getTextContent();
 
         return (Group) entityFactory.getEntity(idN, name);
+    }
+
+    private String getXmlPath(){
+        ClassLoader classLoader = getClass().getClassLoader();
+        String xmlPath = classLoader.getResource("Groups.xml").getFile();
+        return xmlPath;
+    }
+
+    private Document getDocument(String xmlPath) throws ParserConfigurationException, IOException, SAXException {
+        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+        DocumentBuilder builder = factory.newDocumentBuilder();
+
+        Document document = builder.parse(new File(xmlPath));
+        return document;
+    }
+
+    private void saveDocument(Document document, String xmlPath) throws TransformerException {
+        TransformerFactory transformerFactory = TransformerFactory.newInstance();
+        Transformer transformer = transformerFactory.newTransformer();
+        DOMSource domSource = new DOMSource(document);
+
+        StreamResult streamResult = new StreamResult(new File(xmlPath));
+
+        transformer.transform(domSource, streamResult);
     }
 }

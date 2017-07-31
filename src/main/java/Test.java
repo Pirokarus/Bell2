@@ -1,11 +1,10 @@
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
-import model.dao.JacksonContactDao;
-import model.dao.JacksonGroupDAO;
-import model.dao.SAXContactDAO;
-import model.dao.SAXGroupDAO;
+import model.dao.jackson.JacksonContactDao;
+import model.dao.sax.SAXGroupDAO;
 import model.data.Contact;
-import model.data.JacksonContactSet;
+import model.data.Jackson.JacksonContact;
+import model.data.Jackson.JacksonContactSet;
 
 import java.io.File;
 import java.util.HashSet;
@@ -13,7 +12,7 @@ import java.util.Set;
 
 public class Test {
     public static void main(String[] args) throws Exception {
-        SAXGroupDAO jacksonContactDao = new SAXGroupDAO();
+        JacksonContactDao jacksonContactDao = new JacksonContactDao();
 
 
         Test test = new Test();
@@ -22,7 +21,7 @@ public class Test {
         String xsd = test.xsd();
 
         //jacksonContactDao.save();
-        //jacksonContactDao.save(new Contact("d","d","2"));
+        jacksonContactDao.save(new Contact("d","d","2"));
 /*
         XmlMapper mapper = new XmlMapper();
 
@@ -33,9 +32,9 @@ public class Test {
         mapper.enable(SerializationFeature.INDENT_OUTPUT);
 
         mapper.writeValue(new File(xml),
-                new JacksonContactSet(contactSet));*/
+                new JacksonContactSet(contactSet));
 
-        System.out.println(jacksonContactDao.getAll());
+        System.out.println(jacksonContactDao.getAll());*/
 
     }
 

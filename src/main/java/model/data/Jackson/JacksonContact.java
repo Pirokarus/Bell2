@@ -1,8 +1,9 @@
-package model.data;
+package model.data.Jackson;
 
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import exceptions.MyNotPhoneNumberException;
 import factory.EntityFactory;
+import model.data.Contact;
 
 
 public class JacksonContact {

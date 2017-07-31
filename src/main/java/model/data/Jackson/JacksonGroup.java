@@ -1,7 +1,8 @@
-package model.data;
+package model.data.Jackson;
 
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import factory.EntityFactory;
+import model.data.Group;
 
 public class JacksonGroup {
     @JacksonXmlProperty(localName = "id")

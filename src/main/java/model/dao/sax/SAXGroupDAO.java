@@ -1,7 +1,7 @@
-package model.dao;
+package model.dao.sax;
 
-import exceptions.MyNotPhoneNumberException;
 import factory.EntityFactory;
+import model.dao.GroupDAO;
 import model.data.Group;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
@@ -16,7 +16,7 @@ import java.io.IOException;
 import java.util.HashSet;
 import java.util.Set;
 
-public class SAXGroupDAO implements AbstractGroupDAO {
+public class SAXGroupDAO implements GroupDAO {
     @Override
     public void save(Group group) throws ParserConfigurationException, IOException, SAXException, TransformerException {
 

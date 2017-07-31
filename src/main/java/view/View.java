@@ -19,22 +19,11 @@ import java.util.Scanner;
 
 public class View implements Observer{
 
-    //private Model model;
 
-    //private Set<Contact> contactSet;
-    //private Set<Group> groupSet;
     private DownloadController controller = new DownloadController();
     private EntityFactory entityFactory = new EntityFactory();
 
-    /*public void start(){
-        controller.downloadModelData();
-    }*/
-
     public void update(Observable model, Object bool){          //Основная функция визуализации
-
-        //model = new Model();                                    //Инициализация модели
-        //contactSet = Model.getInstance().getContactSet();
-        //groupSet = Model.getInstance().getGroupSet();
 
         Scanner in = new Scanner(System.in);
         RequestEnum req = RequestEnum.o;                              //Инициализация перечиления команд
@@ -67,93 +56,48 @@ public class View implements Observer{
 
                         addContact();
                         req = RequestEnum.o;
-                        //saveModel();
                         continue;
 
                     case b:                                     //Команда редактирования контакта
 
                         redContact();
                         req = RequestEnum.o;
-                        //saveModel();
                         continue;
 
                     case c:                                     //Команда удаления контакта
 
                         try {
                             delContact();
-                        } catch (ParserConfigurationException e) {
-                            e.printStackTrace();
-                        } catch (MyNotPhoneNumberException e) {
-                            e.printStackTrace();
-                        } catch (SAXException e) {
-                            e.printStackTrace();
-                        } catch (XPathExpressionException e) {
-                            e.printStackTrace();
-                        } catch (IOException e) {
-                            e.printStackTrace();
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
                         req = RequestEnum.o;
-                        //saveModel();
                         continue;
 
                     case d:                                     //Команда назначения группы контакту
 
                         try {
                             addContactGroup();
-                        } catch (ParserConfigurationException e) {
-                            e.printStackTrace();
-                        } catch (MyNotPhoneNumberException e) {
-                            e.printStackTrace();
-                        } catch (SAXException e) {
-                            e.printStackTrace();
-                        } catch (XPathExpressionException e) {
-                            e.printStackTrace();
-                        } catch (IOException e) {
-                            e.printStackTrace();
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
                         req = RequestEnum.o;
-                        //saveModel();
                         continue;
 
                     case e:                                     //Команда удаления группы у контакта
 
                         try {
                             delContactGroup();
-                        } catch (ParserConfigurationException e) {
-                            e.printStackTrace();
-                        } catch (MyNotPhoneNumberException e) {
-                            e.printStackTrace();
-                        } catch (SAXException e) {
-                            e.printStackTrace();
-                        } catch (XPathExpressionException e) {
-                            e.printStackTrace();
-                        } catch (IOException e) {
-                            e.printStackTrace();
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
                         req = RequestEnum.o;
-                        //saveModel();
                         continue;
 
                     case f:                                     //Команда отображения всех контактов
 
                         try {
                             System.out.println(ContactService.getInstance().getAll());
-                        } catch (ParserConfigurationException e) {
-                            e.printStackTrace();
-                        } catch (MyNotPhoneNumberException e) {
-                            e.printStackTrace();
-                        } catch (SAXException e) {
-                            e.printStackTrace();
-                        } catch (XPathExpressionException e) {
-                            e.printStackTrace();
-                        } catch (IOException e) {
-                            e.printStackTrace();
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
@@ -163,16 +107,6 @@ public class View implements Observer{
                     case g:                                     //Команда отображения контактов определённой группы
                         try {
                             showGroupContact();
-                        } catch (ParserConfigurationException e) {
-                            e.printStackTrace();
-                        } catch (SAXException e) {
-                            e.printStackTrace();
-                        } catch (XPathExpressionException e) {
-                            e.printStackTrace();
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        } catch (MyNotPhoneNumberException e) {
-                            e.printStackTrace();
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
@@ -183,14 +117,6 @@ public class View implements Observer{
 
                         try {
                             System.out.println(GroupService.getInstance().getAll());
-                        } catch (ParserConfigurationException e) {
-                            e.printStackTrace();
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        } catch (SAXException e) {
-                            e.printStackTrace();
-                        } catch (XPathExpressionException e) {
-                            e.printStackTrace();
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
@@ -201,45 +127,26 @@ public class View implements Observer{
 
                         addGroup();
                         req = RequestEnum.o;
-                        //saveModel();
                         continue;
 
                     case j:                                     //Команда удаления группы
 
                         try {
                             delGroup();
-                        } catch (ParserConfigurationException e) {
-                            e.printStackTrace();
-                        } catch (SAXException e) {
-                            e.printStackTrace();
-                        } catch (XPathExpressionException e) {
-                            e.printStackTrace();
-                        } catch (IOException e) {
-                            e.printStackTrace();
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
                         req = RequestEnum.o;
-                        //saveModel();
                         continue;
 
                     case k:                                     //Команда редактирования группы
 
                         try {
                             redGroup();
-                        } catch (ParserConfigurationException e) {
-                            e.printStackTrace();
-                        } catch (SAXException e) {
-                            e.printStackTrace();
-                        } catch (XPathExpressionException e) {
-                            e.printStackTrace();
-                        } catch (IOException e) {
-                            e.printStackTrace();
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
                         req = RequestEnum.o;
-                        //saveModel();
                         continue;
                 }
             }
@@ -291,14 +198,6 @@ public class View implements Observer{
         }
         catch (MyNotPhoneNumberException e){
             System.out.println("Введите корректный номер");
-        } catch (SAXException e) {
-            e.printStackTrace();
-        } catch (XPathExpressionException e) {
-            e.printStackTrace();
-        } catch (ParserConfigurationException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -417,9 +316,4 @@ public class View implements Observer{
         }
     }
 
-    /*
-    public void saveModel(){                                    //Функция сохранения модели в файл
-
-        controller.save();
-    }*/
 }

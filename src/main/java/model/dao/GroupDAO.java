@@ -10,7 +10,7 @@ import javax.xml.xpath.XPathExpressionException;
 import java.io.IOException;
 import java.util.Set;
 
-public interface AbstractGroupDAO {
+public interface GroupDAO {
     void save(Group group) throws ParserConfigurationException, IOException, SAXException, TransformerException;
     void remove(Group group) throws ParserConfigurationException, IOException, SAXException, XPathExpressionException, TransformerException;
     void removeById(int id) throws ParserConfigurationException, IOException, SAXException, XPathExpressionException, TransformerException;

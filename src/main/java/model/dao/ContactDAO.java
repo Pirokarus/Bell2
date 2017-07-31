@@ -10,7 +10,7 @@ import javax.xml.xpath.XPathExpressionException;
 import java.io.IOException;
 import java.util.Set;
 
-public interface AbstractContactDAO {
+public interface ContactDAO {
     void save(Contact contact) throws Exception;
     void remove(Contact contact) throws XPathExpressionException, ParserConfigurationException, TransformerException, IOException, SAXException;
     void removeById(int id) throws ParserConfigurationException, XPathExpressionException, TransformerException, IOException, SAXException;

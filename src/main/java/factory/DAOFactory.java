@@ -1,9 +1,15 @@
 package factory;
 
 import model.dao.*;
+import model.dao.dom.DOMContactDAO;
+import model.dao.dom.DOMGroupDAO;
+import model.dao.jackson.JacksonContactDao;
+import model.dao.jackson.JacksonGroupDAO;
+import model.dao.sax.SAXContactDAO;
+import model.dao.sax.SAXGroupDAO;
 
 public class DAOFactory {
-    public static AbstractContactDAO getContactDAO(DAOTypes type){
+    public static ContactDAO getContactDAO(DAOTypes type){
         switch (type){
             case DOM:
                 return new DOMContactDAO();
@@ -15,7 +21,7 @@ public class DAOFactory {
         return null;
     }
 
-    public static AbstractGroupDAO getGroupDAO(DAOTypes type){
+    public static GroupDAO getGroupDAO(DAOTypes type){
         switch (type){
             case DOM:
                 return new DOMGroupDAO();

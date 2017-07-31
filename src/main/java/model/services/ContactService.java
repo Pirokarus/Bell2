@@ -1,7 +1,6 @@
 package model.services;
 
-import exceptions.MyNotPhoneNumberException;
-import model.dao.AbstractContactDAO;
+import model.dao.ContactDAO;
 import factory.DAOFactory;
 import model.dao.DAOTypes;
 import model.data.Contact;
@@ -24,7 +23,7 @@ public class ContactService extends Observable implements AbstractContactService
 
     public static ContactService getInstance(){return service;}
 
-    private AbstractContactDAO contactDAO;
+    private ContactDAO contactDAO;
 
     {
         ClassLoader classLoader = getClass().getClassLoader();

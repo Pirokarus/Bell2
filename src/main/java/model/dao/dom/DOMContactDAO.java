@@ -1,7 +1,8 @@
-package model.dao;
+package model.dao.dom;
 
-import exceptions.MyNotPhoneNumberException;
 import factory.EntityFactory;
+import model.dao.ContactDAO;
+import model.dao.MyValidator;
 import model.data.Contact;
 import org.w3c.dom.*;
 import org.xml.sax.SAXException;
@@ -10,6 +11,7 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerConfigurationException;
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
@@ -22,17 +24,13 @@ import java.io.*;
 import java.util.HashSet;
 import java.util.Set;
 
-public class DOMContactDAO implements AbstractContactDAO {
+public class DOMContactDAO implements ContactDAO {
 
     public void save(Contact contact) throws ParserConfigurationException, TransformerException, IOException, SAXException {
-        ClassLoader classLoader = getClass().getClassLoader();
-        String xmlPath = classLoader.getResource("Contacts.xml").getFile();
 
+        String xmlPath = getXmlPath();
 
-        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-        DocumentBuilder builder = factory.newDocumentBuilder();
-
-        Document document = builder.parse(new File(xmlPath));
+        Document document = getContactDocument(xmlPath);
 
         Node root = document.getFirstChild();
 
@@ -59,20 +57,12 @@ public class DOMContactDAO implements AbstractContactDAO {
         groupId.appendChild(document.createTextNode(contact.getGroupId().toString()));
         contactEl.appendChild(groupId);
 
-        TransformerFactory transformerFactory = TransformerFactory.newInstance();
-        Transformer transformer = transformerFactory.newTransformer();
-        DOMSource domSource = new DOMSource(document);
-
-        StreamResult streamResult = new StreamResult(new File(xmlPath));
-
-        transformer.transform(domSource, streamResult);
-
-
+        saveDocumet(document,xmlPath);
     }
 
     public void remove(Contact contact) throws XPathExpressionException, ParserConfigurationException, TransformerException, IOException, SAXException {
-        ClassLoader classLoader = getClass().getClassLoader();
-        String xmlPath = classLoader.getResource("Contacts.xml").getFile();
+
+        String xmlPath = getXmlPath();
 
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         DocumentBuilder builder = factory.newDocumentBuilder();
@@ -88,24 +78,14 @@ public class DOMContactDAO implements AbstractContactDAO {
 
         root.removeChild(node);
 
-        TransformerFactory transformerFactory = TransformerFactory.newInstance();
-        Transformer transformer = transformerFactory.newTransformer();
-        DOMSource domSource = new DOMSource(document);
-
-        StreamResult streamResult = new StreamResult(new File(xmlPath));
-
-        transformer.transform(domSource, streamResult);
+        saveDocumet(document,xmlPath);
 
     }
 
     public void removeById(int id) throws ParserConfigurationException, XPathExpressionException, TransformerException, IOException, SAXException {
-        ClassLoader classLoader = getClass().getClassLoader();
-        String xmlPath = classLoader.getResource("Contacts.xml").getFile();
 
-        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-        DocumentBuilder builder = factory.newDocumentBuilder();
-
-        Document document = builder.parse(new File(xmlPath));
+        String xmlPath = getXmlPath();
+        Document document = getContactDocument(xmlPath);
 
         XPath xPath = XPathFactory.newInstance().newXPath();
 
@@ -116,24 +96,15 @@ public class DOMContactDAO implements AbstractContactDAO {
 
         root.removeChild(node);
 
-        TransformerFactory transformerFactory = TransformerFactory.newInstance();
-        Transformer transformer = transformerFactory.newTransformer();
-        DOMSource domSource = new DOMSource(document);
-
-        StreamResult streamResult = new StreamResult(new File(xmlPath));
-
-        transformer.transform(domSource, streamResult);
+        saveDocumet(document,xmlPath);
 
     }
 
     public void update(Contact contact, int id) throws XPathExpressionException, TransformerException, ParserConfigurationException, IOException, SAXException {
-        ClassLoader classLoader = getClass().getClassLoader();
-        String xmlPath = classLoader.getResource("Contacts.xml").getFile();
 
-        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-        DocumentBuilder builder = factory.newDocumentBuilder();
+        String xmlPath = getXmlPath();
 
-        Document document = builder.parse(new File(xmlPath));
+        Document document = getContactDocument(xmlPath);
 
         XPath xPath = XPathFactory.newInstance().newXPath();
 
@@ -166,15 +137,7 @@ public class DOMContactDAO implements AbstractContactDAO {
         Element groupId = document.createElement("groupId");
         groupId.appendChild(document.createTextNode(contact.getGroupId().toString()));
         contactEl.appendChild(groupId);
-
-
-        TransformerFactory transformerFactory = TransformerFactory.newInstance();
-        Transformer transformer = transformerFactory.newTransformer();
-        DOMSource domSource = new DOMSource(document);
-
-        StreamResult streamResult = new StreamResult(new File(xmlPath));
-
-        transformer.transform(domSource, streamResult);
+        saveDocumet(document,xmlPath);
     }
 
     public Set<Contact> getAll() throws Exception {
@@ -257,6 +220,29 @@ public class DOMContactDAO implements AbstractContactDAO {
             return (Contact) entityFactory.getEntity(idN, firstName, lastName, number, groupId);
         }
         else return null;
+    }
 
+    private Document getContactDocument(String xmlPath) throws ParserConfigurationException, IOException, SAXException {
+
+        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+        DocumentBuilder builder = factory.newDocumentBuilder();
+        Document document = builder.parse(new File(xmlPath));
+        return document;
+    }
+
+    private String getXmlPath(){
+        ClassLoader classLoader = getClass().getClassLoader();
+        String xmlPath = classLoader.getResource("Contacts.xml").getFile();
+        return xmlPath;
+    }
+
+    private void saveDocumet(Document document, String xmlPath) throws TransformerException {
+        TransformerFactory transformerFactory = TransformerFactory.newInstance();
+        Transformer transformer = transformerFactory.newTransformer();
+        DOMSource domSource = new DOMSource(document);
+
+        StreamResult streamResult = new StreamResult(new File(xmlPath));
+
+        transformer.transform(domSource, streamResult);
     }
 }

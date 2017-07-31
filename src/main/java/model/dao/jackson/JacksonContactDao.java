@@ -1,10 +1,11 @@
-package model.dao;
+package model.dao.jackson;
 
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
-import exceptions.MyNotPhoneNumberException;
+import model.dao.ContactDAO;
+import model.dao.MyValidator;
 import model.data.Contact;
-import model.data.JacksonContactSet;
+import model.data.Jackson.JacksonContactSet;
 
 import org.xml.sax.SAXException;
 
@@ -16,12 +17,11 @@ import java.io.IOException;
 import java.util.HashSet;
 import java.util.Set;
 
-public class JacksonContactDao implements AbstractContactDAO {
+public class JacksonContactDao implements ContactDAO {
     @Override
     public void save(Contact contact) throws Exception {
         ClassLoader classLoader = getClass().getClassLoader();
         String xmlPath = classLoader.getResource("Contacts.xml").getFile();
-
 
         XmlMapper mapper = new XmlMapper();
 
@@ -90,7 +90,6 @@ public class JacksonContactDao implements AbstractContactDAO {
             return outContact;
         }
         else return null;
-
 
     }
 }

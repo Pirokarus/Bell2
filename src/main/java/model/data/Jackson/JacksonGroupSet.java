@@ -1,8 +1,9 @@
-package model.data;
+package model.data.Jackson;
 
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlElementWrapper;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
+import model.data.Group;
 
 import java.util.HashSet;
 import java.util.Set;

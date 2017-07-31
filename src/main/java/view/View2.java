@@ -17,18 +17,8 @@ public class View2 implements Observer {
         try {
             System.out.println(ContactService.getInstance().getAll());
             System.out.println(GroupService.getInstance().getAll());
-        } catch (ParserConfigurationException e) {
-            e.printStackTrace();
-        } catch (MyNotPhoneNumberException e) {
-            e.printStackTrace();
-        } catch (SAXException e) {
-            e.printStackTrace();
-        } catch (XPathExpressionException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
         } catch (Exception e) {
-
+            e.printStackTrace();
         }
 
     }
