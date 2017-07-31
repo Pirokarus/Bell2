@@ -18,6 +18,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class JacksonContactDao implements ContactDAO {
+
     @Override
     public void save(Contact contact) throws Exception {
         ClassLoader classLoader = getClass().getClassLoader();

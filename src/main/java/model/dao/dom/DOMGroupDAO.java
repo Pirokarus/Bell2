@@ -208,7 +208,7 @@ public class DOMGroupDAO implements GroupDAO {
 
         root.removeChild(node);
 
-        Element contactEl = document.createElement("Contact");
+        Element contactEl = document.createElement("Group");
         root.appendChild(contactEl);
 
         Element id1 = document.createElement("id");
