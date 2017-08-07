@@ -14,7 +14,7 @@ _pussword
 );
 END
 $BODY$
-LANGUAGE 'plpgsql'
+LANGUAGE 'plpgsql';
 
 
 CREATE OR REPLACE FUNCTION add_group(
@@ -33,7 +33,7 @@ _userId
 );
 END
 $BODY$
-LANGUAGE 'plpgsql'
+LANGUAGE 'plpgsql';
 
 
 CREATE OR REPLACE FUNCTION add_contact(
