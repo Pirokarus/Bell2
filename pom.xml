@@ -17,10 +17,137 @@
                     <target>1.7</target>
                 </configuration>
             </plugin>
+
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>sql-maven-plugin</artifactId>
+                <version>1.5</version>
+                <dependencies>
+                    <dependency>
+                        <groupId>postgresql</groupId>
+                        <artifactId>postgresql</artifactId>
+                        <version>RELEASE</version>
+                    </dependency>
+                </dependencies>
+
+                <configuration>
+                    <driver>org.postgresql.Driver</driver>
+                    <url>jdbc:postgresql://localhost:5433:belldb</url>
+                    <username>postgres</username>
+                    <password>root</password>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>drop-db-before-test-if-any</id>
+                        <goals>
+                            <goal>execute</goal>
+                        </goals>
+                        <configuration>
+                            <url>jdbc:postgresql://localhost:5433:belldb2</url>
+                            <autocommit>true</autocommit>
+                            <sqlCommand>drop database belldb2</sqlCommand>
+                            <onError>continue</onError>
+                        </configuration>
+                    </execution>
+
+
+                    <execution>
+                        <id>create-db</id>
+                        <goals>
+                            <goal>execute</goal>
+                        </goals>
+                        <configuration>
+                            <url>jdbc:postgresql://localhost:5433:belldb2</url>
+                            <autocommit>true</autocommit>
+                            <sqlCommand>create database belldb2</sqlCommand>
+                        </configuration>
+                    </execution>
+
+
+                    <execution>
+                        <id>create-schema</id>
+                        <phase>process-test-resources</phase>
+                        <goals>
+                            <goal>execute</goal>
+                        </goals>
+                        <configuration>
+                            <autocommit>true</autocommit>
+                            <srcFiles>
+                                <srcFile>src/main/java/sql/bell_db.sql</srcFile>
+                            </srcFiles>
+                        </configuration>
+                    </execution>
+
+                    <execution>
+                        <id>create-functions</id>
+                        <phase>process-test-resources</phase>
+                        <goals>
+                            <goal>execute</goal>
+                        </goals>
+                        <configuration>
+                            <autocommit>true</autocommit>
+                            <srcFiles>
+                                <srcFile>src/main/java/sql/functions.sql</srcFile>
+                            </srcFiles>
+                        </configuration>
+                    </execution>
+
+                    <execution>
+                        <id>create-data</id>
+                        <phase>process-test-resources</phase>
+                        <goals>
+                            <goal>execute</goal>
+                        </goals>
+                        <configuration>
+                            <autocommit>true</autocommit>
+                            <srcFiles>
+                                <srcFile>src/main/java/sql/data.sql</srcFile>
+                            </srcFiles>
+                        </configuration>
+                    </execution>
+
+                    <!--<execution>-->
+                    <!--<id>create-data</id>-->
+                    <!--<phase>process-test-resources</phase>-->
+                    <!--<goals>-->
+                    <!--<goal>execute</goal>-->
+                    <!--</goals>-->
+                    <!--<configuration>-->
+                    <!--<orderFile>ascending</orderFile>-->
+                    <!--<fileset>-->
+                    <!--<basedir>${basedir}</basedir>-->
+                    <!--<includes>-->
+                    <!--&lt;!&ndash;<include>src/main/java/functions.sql</include>&ndash;&gt;-->
+                    <!--<include>src/main/java/data.sql</include>-->
+                    <!--</includes>-->
+                    <!--</fileset>-->
+                    <!--</configuration>-->
+                    <!--</execution>-->
+
+                    <!--<execution>-->
+                    <!--<id>drop-db-after-test</id>-->
+                    <!--<phase>test</phase>-->
+                    <!--<goals>-->
+                    <!--<goal>execute</goal>-->
+                    <!--</goals>-->
+                    <!--<configuration>-->
+                    <!--<autocommit>true</autocommit>-->
+                    <!--<sqlCommand>drop database belldb2</sqlCommand>-->
+                    <!--</configuration>-->
+                    <!--</execution>-->
+
+                </executions>
+            </plugin>
+
         </plugins>
     </build>
 
     <dependencies>
+        <dependency>
+            <groupId>postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>RELEASE</version>
+        </dependency>
         <dependency>
             <groupId>com.fasterxml.jackson.dataformat</groupId>
             <artifactId>jackson-dataformat-xml</artifactId>
@@ -38,5 +165,6 @@
         </dependency>
     </dependencies>
 
-    
+
+
 </project>

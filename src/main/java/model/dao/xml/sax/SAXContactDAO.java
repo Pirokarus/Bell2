@@ -1,4 +1,4 @@
-package model.dao.sax;
+package model.dao.xml.sax;
 
 import exceptions.MyNotPhoneNumberException;
 import factory.EntityFactory;
@@ -24,7 +24,7 @@ public class SAXContactDAO implements ContactDAO {
 
     }
 
-    @Override
+    //@Override
     public void remove(Contact contact) throws XPathExpressionException, ParserConfigurationException, TransformerException, IOException, SAXException {
 
     }
@@ -94,11 +94,11 @@ public class SAXContactDAO implements ContactDAO {
 
                         if (qName.equals("Contact")) {
                             Contact contact = null;
-                            try {
+                            /*try {
                                 contact = (Contact) EntityFactory.getEntity(id, firstName, lastName, number, groupId);
                             } catch (MyNotPhoneNumberException e) {
                                 e.printStackTrace();
-                            }
+                            }*/
                             contactSet.add(contact);
                         }
                     }
@@ -129,5 +129,20 @@ public class SAXContactDAO implements ContactDAO {
         }
 
         return contact;
+    }
+
+    @Override
+    public void addContactGroup(int idC, int idG) {
+
+    }
+
+    @Override
+    public void removeContactGroup(int idC, int idG) {
+
+    }
+
+    @Override
+    public boolean login(String login, String password) {
+        return false;
     }
 }

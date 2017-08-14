@@ -1,4 +1,4 @@
-package model.dao.dom;
+package model.dao.xml.dom;
 
 import factory.EntityFactory;
 import model.dao.ContactDAO;
@@ -11,7 +11,6 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerConfigurationException;
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
@@ -178,7 +177,7 @@ public class DOMContactDAO implements ContactDAO {
                         maxId = id;
                     }
 
-                    out.add((Contact) entityFactory.getEntity(id, firstName, lastName, number, groupId));
+                    //out.add((Contact) entityFactory.getEntity(id, firstName, lastName, number, groupId));
                 }
             }
 
@@ -190,7 +189,7 @@ public class DOMContactDAO implements ContactDAO {
     }
 
     public Contact getById(int id) throws Exception {
-
+/*
         ClassLoader classLoader = getClass().getClassLoader();
         String xmlPath = classLoader.getResource("Contacts.xml").getFile();
         String xsdPath = classLoader.getResource("ContactSet.xsd").getFile();
@@ -219,7 +218,22 @@ public class DOMContactDAO implements ContactDAO {
 
             return (Contact) entityFactory.getEntity(idN, firstName, lastName, number, groupId);
         }
-        else return null;
+        else*/ return null;
+    }
+
+    @Override
+    public void addContactGroup(int idC, int idG) {
+
+    }
+
+    @Override
+    public void removeContactGroup(int idC, int idG) {
+
+    }
+
+    @Override
+    public boolean login(String login, String password) {
+        return false;
     }
 
     private Document getContactDocument(String xmlPath) throws ParserConfigurationException, IOException, SAXException {

@@ -24,7 +24,7 @@ public interface GroupDAO {
      * @param group
      * @throws Exception
      */
-    void remove(Group group) throws Exception;
+    //void remove(Group group) throws Exception;
 
     /**
      * Метод удаляет группу с указаным id из файла Groups.xml, если она там записана

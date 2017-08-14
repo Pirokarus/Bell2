@@ -3,6 +3,8 @@ package model.data;
 import exceptions.MyNotPhoneNumberException;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 public class Contact extends Entity implements Serializable{           //Класс для описания контактов
 
@@ -11,12 +13,7 @@ public class Contact extends Entity implements Serializable{           //Кла�
     private String firstName;
     private String lastName;
     private String number;
-    private Integer groupId = -1;
-
-    {
-        ++id_count;
-        id = id_count;
-    }
+    private Set<Integer> groupId = new HashSet<>();
 
     public Contact(String firstName, String number) throws MyNotPhoneNumberException {
         this.firstName = firstName;
@@ -29,7 +26,7 @@ public class Contact extends Entity implements Serializable{           //Кла�
         setNumber(number);
     }
 
-    public Contact(Integer id, String firstName, String lastName, String number, Integer groupId) {
+    public Contact(Integer id, String firstName, String lastName, String number, Set<Integer> groupId) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -68,11 +65,11 @@ public class Contact extends Entity implements Serializable{           //Кла�
         this.number = number;
     }
 
-    public Integer getGroupId() {
+    public Set<Integer> getGroupId() {
         return groupId;
     }
 
-    public void setGroupId(Integer groupId) {
+    public void setGroupId(Set<Integer> groupId) {
         this.groupId = groupId;
     }
 
@@ -88,6 +85,18 @@ public class Contact extends Entity implements Serializable{           //Кла�
         Contact.id_count = id_count;
     }
 
+    public void addGroupId(Integer i){
+        groupId.add(i);
+    }
+
+    public void removeGroup(Integer i){
+        groupId.remove(i);
+    }
+
+    public boolean containGroup(Integer id){
+        return groupId.contains(id);
+    }
+
     @Override
     public String toString() {
         return "Contact{" +
@@ -95,7 +104,7 @@ public class Contact extends Entity implements Serializable{           //Кла�
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", number='" + number + '\'' +
-                ", groupId=" + groupId +
-                '}';
+                ", groupId=" + groupId + '\'' +
+                "\n";
     }
 }

@@ -20,13 +20,6 @@ public interface ContactDAO {
     void save(Contact contact) throws Exception;
 
     /**
-     * Метод удаляет контакт из файла Contacts.xml
-     * @param contact
-     * @throws Exception
-     */
-    void remove(Contact contact) throws Exception;
-
-    /**
      * Метод удаляет контакт из файла Contacts.xml по id
      * @param id
      * @throws Exception
@@ -56,4 +49,10 @@ public interface ContactDAO {
      * @throws Exception
      */
     Contact getById(int id) throws Exception;
+
+    void addContactGroup(int idC, int idG);
+
+    void removeContactGroup(int idC, int idG);
+
+    boolean login(String login, String password);
 }

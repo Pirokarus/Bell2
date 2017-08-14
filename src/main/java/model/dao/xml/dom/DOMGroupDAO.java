@@ -1,4 +1,4 @@
-package model.dao.dom;
+package model.dao.xml.dom;
 
 import factory.EntityFactory;
 import model.dao.GroupDAO;
@@ -13,7 +13,6 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerConfigurationException;
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
@@ -53,7 +52,7 @@ public class DOMGroupDAO implements GroupDAO {
 
     }
 
-    @Override
+    //@Override
     public void remove(Group group) throws ParserConfigurationException, IOException, SAXException, XPathExpressionException, TransformerException {
 
         String xmlPath = getXmlPath();

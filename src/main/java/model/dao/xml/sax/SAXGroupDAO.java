@@ -1,4 +1,4 @@
-package model.dao.sax;
+package model.dao.xml.sax;
 
 import factory.EntityFactory;
 import model.dao.GroupDAO;
@@ -22,7 +22,7 @@ public class SAXGroupDAO implements GroupDAO {
 
     }
 
-    @Override
+    //@Override
     public void remove(Group group) throws ParserConfigurationException, IOException, SAXException, XPathExpressionException, TransformerException {
 
     }

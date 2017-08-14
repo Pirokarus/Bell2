@@ -1,54 +1,25 @@
-import com.fasterxml.jackson.databind.SerializationFeature;
-import com.fasterxml.jackson.dataformat.xml.XmlMapper;
-import model.dao.jackson.JacksonContactDao;
-import model.dao.jackson.JacksonGroupDAO;
-import model.dao.sax.SAXGroupDAO;
-import model.data.Contact;
+import model.dao.jdbc.JdbcGroupDAO;
+import model.dao.xml.jackson.JacksonGroupDAO;
+import model.dao.xml.sax.SAXGroupDAO;
 import model.data.Group;
-import model.data.Jackson.JacksonContact;
-import model.data.Jackson.JacksonContactSet;
-
-import java.io.File;
-import java.util.HashSet;
-import java.util.Set;
+import model.services.GroupService;
+import threads.View2Thread;
+import threads.ViewThread;
 
 public class Test {
     public static void main(String[] args) throws Exception {
-        JacksonGroupDAO jacksonContactDao = new JacksonGroupDAO();
 
+        View2Thread view2Thread = new View2Thread();
+        View2Thread view2Thread1 = new View2Thread();
+        ViewThread viewThread = new ViewThread();
 
-        Test test = new Test();
+        Thread thread1 = new Thread(view2Thread);
+        Thread thread2 = new Thread(view2Thread1);
+        Thread thread3 = new Thread(viewThread);
 
-        String xml = test.xml();
-        String xsd = test.xsd();
-
-        //jacksonContactDao.save();
-        jacksonContactDao.save(new Group("gr"));
-/*
-        XmlMapper mapper = new XmlMapper();
-
-        Set<Contact> contactSet = new HashSet<Contact>();
-        contactSet.add(new Contact("c","c","1"));
-        contactSet.add(new Contact("d","d","2"));
-
-        mapper.enable(SerializationFeature.INDENT_OUTPUT);
-
-        mapper.writeValue(new File(xml),
-                new JacksonContactSet(contactSet));
-
-        System.out.println(jacksonContactDao.getAll());*/
-
+        thread1.start();
+        thread2.start();
+        thread3.start();
     }
 
-    public String xml(){
-        ClassLoader classLoader = getClass().getClassLoader();
-        String xmlPath = classLoader.getResource("Contacts.xml").getFile();
-        return  xmlPath;
-    }
-
-    public String xsd(){
-        ClassLoader classLoader = getClass().getClassLoader();
-        String xsdPath = classLoader.getResource("ContactSet.xsd").getFile();
-        return  xsdPath;
-    }
 }

@@ -23,7 +23,7 @@ public interface AbstractContactService {
      * @param contact
      * @throws Exception
      */
-    void remove(Contact contact) throws Exception;
+    //void remove(Contact contact) throws Exception;
 
     /**
      * Метод удаляет контакт по id
@@ -54,4 +54,5 @@ public interface AbstractContactService {
      * @throws Exception
      */
     Contact getById(int id) throws Exception;
+
 }

@@ -5,6 +5,8 @@ import exceptions.MyNotPhoneNumberException;
 import factory.EntityFactory;
 import model.data.Contact;
 
+import java.util.Set;
+
 
 public class JacksonContact {
 
@@ -21,7 +23,7 @@ public class JacksonContact {
     private String number;
 
     @JacksonXmlProperty(localName = "groupId")
-    private Integer groupId;
+    private Set<Integer> groupId;
 
     public JacksonContact() {
     }
@@ -58,11 +60,11 @@ public class JacksonContact {
         this.number = number;
     }
 
-    public Integer getGroupId() {
+    public Set<Integer> getGroupId() {
         return groupId;
     }
 
-    public void setGroupId(Integer groupId) {
+    public void setGroupId(Set<Integer> groupId) {
         this.groupId = groupId;
     }
 
@@ -75,7 +77,7 @@ public class JacksonContact {
         this.groupId = contact.getGroupId();
     }*/
 
-    public JacksonContact(Integer id, String firstName, String lastName, String number, Integer groupId) {
+    public JacksonContact(Integer id, String firstName, String lastName, String number, Set<Integer> groupId) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;

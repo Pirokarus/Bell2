@@ -1,4 +1,4 @@
-package model.dao.jackson;
+package model.dao.xml.jackson;
 
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
@@ -7,13 +7,7 @@ import model.dao.MyValidator;
 import model.data.Contact;
 import model.data.Jackson.JacksonContactSet;
 
-import org.xml.sax.SAXException;
-
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.transform.TransformerException;
-import javax.xml.xpath.XPathExpressionException;
 import java.io.File;
-import java.io.IOException;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -43,7 +37,7 @@ public class JacksonContactDao implements ContactDAO {
                 new JacksonContactSet(contactSet));
     }
 
-    @Override
+    //@Override
     public void remove(Contact contact) throws Exception {
         ClassLoader classLoader = getClass().getClassLoader();
         String xmlPath = classLoader.getResource("Contacts.xml").getFile();
@@ -174,5 +168,20 @@ public class JacksonContactDao implements ContactDAO {
         }
         else return null;
 
+    }
+
+    @Override
+    public void addContactGroup(int idC, int idG) {
+
+    }
+
+    @Override
+    public void removeContactGroup(int idC, int idG) {
+
+    }
+
+    @Override
+    public boolean login(String login, String password) {
+        return false;
     }
 }

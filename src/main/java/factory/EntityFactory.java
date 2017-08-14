@@ -5,6 +5,8 @@ import model.data.Contact;
 import model.data.Entity;
 import model.data.Group;
 
+import java.util.Set;
+
 public class EntityFactory {
     public static Entity getEntity(String name){
         return new Group(name);
@@ -22,7 +24,7 @@ public class EntityFactory {
         return new Contact(firstName, lastName, number);
     }
 
-    public static Entity getEntity(int id, String firstName, String lastName, String number, int groupId) throws MyNotPhoneNumberException {
+    public static Entity getEntity(int id, String firstName, String lastName, String number, Set<Integer> groupId) throws MyNotPhoneNumberException {
         return new Contact(id, firstName, lastName, number, groupId);
     }
 }

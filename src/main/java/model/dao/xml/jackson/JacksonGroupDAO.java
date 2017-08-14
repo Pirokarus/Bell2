@@ -1,4 +1,4 @@
-package model.dao.jackson;
+package model.dao.xml.jackson;
 
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
@@ -11,7 +11,6 @@ import model.data.Jackson.JacksonGroupSet;
 import org.xml.sax.SAXException;
 
 import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.transform.TransformerException;
 import javax.xml.xpath.XPathExpressionException;
 import java.io.File;
 import java.io.IOException;
@@ -43,7 +42,7 @@ public class JacksonGroupDAO implements GroupDAO {
                 new JacksonGroupSet(groupSet));
     }
 
-    @Override
+    //@Override
     public void remove(Group group) throws Exception {
         ClassLoader classLoader = getClass().getClassLoader();
         String xmlPath = classLoader.getResource("Groups.xml").getFile();
@@ -74,13 +73,13 @@ public class JacksonGroupDAO implements GroupDAO {
                             JacksonContactSet.class);
 
                     contactSet = jacksonContactSet.toContactSet();
-
+/*
                     for(Contact contact:contactSet){
                         if(contact.getGroupId()==group.getId()){
                             contact.setGroupId(-1);
                         }
                     }
-
+*/
                     mapper1.enable(SerializationFeature.INDENT_OUTPUT);
                     mapper1.writeValue(new File(xmlPath1),
                             new JacksonContactSet(contactSet));
@@ -131,13 +130,13 @@ public class JacksonGroupDAO implements GroupDAO {
                             JacksonContactSet.class);
 
                     contactSet = jacksonContactSet.toContactSet();
-
+/*
                     for(Contact contact:contactSet){
                         if(contact.getGroupId()==group.getId()){
                             contact.setGroupId(-1);
                         }
                     }
-
+*/
                     mapper1.enable(SerializationFeature.INDENT_OUTPUT);
                     mapper1.writeValue(new File(xmlPath1),
                             new JacksonContactSet(contactSet));

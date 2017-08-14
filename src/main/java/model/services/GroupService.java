@@ -3,12 +3,10 @@ package model.services;
 import model.dao.GroupDAO;
 import factory.DAOFactory;
 import model.dao.DAOTypes;
+import model.dao.jdbc.JdbcGroupDAO;
+import model.dao.xml.jackson.JacksonGroupDAO;
 import model.data.Group;
-import org.xml.sax.SAXException;
 
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.transform.TransformerException;
-import javax.xml.xpath.XPathExpressionException;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -17,15 +15,15 @@ import java.util.*;
 public class GroupService extends Observable implements GroupDAO {
 
     private static GroupService service = new GroupService();
-    private List<Observer> observers = new ArrayList<Observer>();
+    private Vector<Observer> observers = new Vector<>();
 
     private GroupService(){}
 
     public static GroupService getInstance(){return service;}
 
-    private GroupDAO groupDAO;
+    private GroupDAO groupDAO = new JdbcGroupDAO();
 
-    {
+    {/*
         ClassLoader classLoader = getClass().getClassLoader();
         String path = classLoader.getResource("daotype.properties").getFile();
         try {
@@ -38,7 +36,7 @@ public class GroupService extends Observable implements GroupDAO {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
-        }
+        }*/
     }
 
     @Override
@@ -46,12 +44,12 @@ public class GroupService extends Observable implements GroupDAO {
         groupDAO.save(group);
         updateEvent();
     }
-
+/*
     @Override
     public void remove(Group group) throws Exception {
         groupDAO.remove(group);
         updateEvent();
-    }
+    }*/
 
     @Override
     public void removeById(int id) throws Exception {

@@ -8,11 +8,6 @@ public class Group extends Entity implements Serializable{             //Кла�
     private Integer id;
     private String name;
 
-    {
-        ++id_count;
-        id = id_count;
-    }
-
     public Group(String name) {
         this.name = name;
     }

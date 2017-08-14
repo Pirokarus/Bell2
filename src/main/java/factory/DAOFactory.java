@@ -1,12 +1,17 @@
 package factory;
 
-import model.dao.*;
-import model.dao.dom.DOMContactDAO;
-import model.dao.dom.DOMGroupDAO;
-import model.dao.jackson.JacksonContactDao;
-import model.dao.jackson.JacksonGroupDAO;
-import model.dao.sax.SAXContactDAO;
-import model.dao.sax.SAXGroupDAO;
+import model.dao.ContactDAO;
+import model.dao.DAOTypes;
+
+import model.dao.GroupDAO;
+
+import model.dao.jdbc.JdbcContactDAO;
+import model.dao.xml.dom.DOMContactDAO;
+import model.dao.xml.dom.DOMGroupDAO;
+import model.dao.xml.jackson.JacksonContactDao;
+import model.dao.xml.jackson.JacksonGroupDAO;
+import model.dao.xml.sax.SAXContactDAO;
+import model.dao.xml.sax.SAXGroupDAO;
 
 public class DAOFactory {
     public static ContactDAO getContactDAO(DAOTypes type){
@@ -17,6 +22,8 @@ public class DAOFactory {
                 return new JacksonContactDao();
             case SAX:
                 return new SAXContactDAO();
+            case JDBC:
+                return new JdbcContactDAO();
         }
         return null;
     }
@@ -29,6 +36,8 @@ public class DAOFactory {
                 return new JacksonGroupDAO();
             case SAX:
                 return new SAXGroupDAO();
+            case JDBC:
+                return new JacksonGroupDAO();
         }
         return null;
     }

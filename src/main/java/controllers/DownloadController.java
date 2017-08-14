@@ -17,6 +17,8 @@ public class DownloadController {
     ContactService contactService = ContactService.getInstance();
     GroupService groupService = GroupService.getInstance();
 
+
+
     /**
      * Метод добавления контакта
      * @param contact
@@ -92,5 +94,17 @@ public class DownloadController {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public void addContactGroup(int idC, int idG) {
+        contactService.addContactGroup(idC,idG);
+    }
+
+    public void removeContactGroup(int idC, int idG) {
+        contactService.removeContactGroup(idC,idG);
+    }
+
+    public boolean login(String login, String password) {
+        return contactService.login(login,password);
     }
 }

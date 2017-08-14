@@ -22,11 +22,22 @@ public class View implements Observer{
 
     private DownloadController controller = new DownloadController();
     private EntityFactory entityFactory = new EntityFactory();
+    private boolean log = true;
 
     public void update(Observable model, Object bool){          //Основная функция визуализации
 
         Scanner in = new Scanner(System.in);
         RequestEnum req = RequestEnum.o;                              //Инициализация перечиления команд
+
+        while (log) {
+            System.out.println("Введите логин:");
+            String login = in.nextLine();
+            System.out.println("Введите пароль");
+            String password = in.nextLine();
+
+            log = !controller.login(login, password);
+        }
+
 
         while (true) {
             if(req == RequestEnum.l){                              //Команда выхода из программы
@@ -226,21 +237,8 @@ public class View implements Observer{
 
         int idG = in.nextInt();
 
-        try {
-            for (Contact contact : ContactService.getInstance().getAll()) {
-                if (contact.getId() == idC) {
-                    for (Group group : GroupService.getInstance().getAll()) {
-                        if (group.getId() == idG) {
-                            contact.setGroupId(idG);
-                            controller.updateContact(contact, idC);
-                        }
-                    }
-                }
-            }
-        }
-        catch (MyNotPhoneNumberException e){
+        controller.addContactGroup(idC,idG);
 
-        }
 
     }
 
@@ -250,15 +248,14 @@ public class View implements Observer{
         System.out.println(ContactService.getInstance().getAll());
         System.out.print("Выберите индекс контакта: ");
 
-        int id = in.nextInt();
+        int idC = in.nextInt();
 
         for (Contact contact :ContactService.getInstance().getAll()){
-            if (contact.getId() == id){
-                contact.setGroupId(-1);
-                try {
-                    controller.updateContact(contact,id);
-                } catch (MyNotPhoneNumberException e) {
-
+            if (contact.getId() == idC){
+                if(!contact.getGroupId().isEmpty()) {
+                    System.out.println("Выберите индекс группы");
+                    int idG = in.nextInt();
+                    controller.removeContactGroup(idC,idG);
                 }
             }
         }
@@ -273,8 +270,8 @@ public class View implements Observer{
         int idG = in.nextInt();
 
         for (Contact contact :ContactService.getInstance().getAll()){
-            if(contact.getGroupId() != -1) {
-                if (contact.getGroupId() == idG){
+            if(!contact.getGroupId().isEmpty()) {
+                if (contact.containGroup(idG)){
                     System.out.println(contact);
                 }
             }

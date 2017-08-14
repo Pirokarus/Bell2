@@ -4,11 +4,7 @@ import model.dao.ContactDAO;
 import factory.DAOFactory;
 import model.dao.DAOTypes;
 import model.data.Contact;
-import org.xml.sax.SAXException;
 
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.transform.TransformerException;
-import javax.xml.xpath.XPathExpressionException;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -17,7 +13,7 @@ import java.util.*;
 public class ContactService extends Observable implements AbstractContactService {
 
     private static ContactService service = new ContactService();
-    private List<Observer> observers = new ArrayList<Observer>();
+    private Vector<Observer> observers = new Vector<>();
 
     private ContactService(){}
 
@@ -46,10 +42,6 @@ public class ContactService extends Observable implements AbstractContactService
         updateEvent();
     }
 
-    public void remove(Contact contact) throws Exception {
-        contactDAO.remove(contact);
-        updateEvent();
-    }
 
     public void removeById(int id) throws Exception {
         contactDAO.removeById(id);
@@ -80,5 +72,19 @@ public class ContactService extends Observable implements AbstractContactService
 
         observers.add(outlet);
 
+    }
+
+    public void addContactGroup(int idC, int idG) {
+        contactDAO.addContactGroup(idC,idG);
+        updateEvent();
+    }
+
+    public void removeContactGroup(int idC, int idG) {
+        contactDAO.removeContactGroup(idC,idG);
+        updateEvent();
+    }
+
+    public boolean login(String login, String password) {
+        return contactDAO.login(login,password);
     }
 }
