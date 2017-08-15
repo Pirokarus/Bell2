@@ -13,7 +13,7 @@ import java.util.*;
 public class ContactService extends Observable implements AbstractContactService {
 
     private static ContactService service = new ContactService();
-    private Vector<Observer> observers = new Vector<>();
+    private ArrayList<Observer> observers = new ArrayList<>();
 
     private ContactService(){}
 
@@ -68,7 +68,7 @@ public class ContactService extends Observable implements AbstractContactService
         }
     }
 
-    public void register(Observer outlet) {
+    public synchronized void register(Observer outlet) {
 
         observers.add(outlet);
 
