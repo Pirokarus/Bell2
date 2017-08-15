@@ -14,7 +14,7 @@ import java.util.*;
 
 public class GroupService extends Observable implements GroupDAO {
 
-    private static GroupService service = new GroupService();
+    private static volatile GroupService service;
     private Vector<Observer> observers = new Vector<>();
 
     private GroupService(){
@@ -35,10 +35,17 @@ public class GroupService extends Observable implements GroupDAO {
     }
 
     public synchronized static GroupService getInstance(){
-        if(service==null){
-            service = new GroupService();
+        GroupService groupService = service;
+        if(groupService==null){
+            synchronized (GroupService.class){
+                groupService = service;
+                if(groupService==null){
+                    service = groupService = new GroupService();
+                }
+            }
         }
-        return service;}
+        return service;
+    }
 
     private GroupDAO groupDAO = new JdbcGroupDAO();
 

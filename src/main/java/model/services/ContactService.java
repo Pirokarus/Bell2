@@ -12,7 +12,7 @@ import java.util.*;
 
 public class ContactService extends Observable implements AbstractContactService {
 
-    private static ContactService service;
+    private static volatile ContactService service;
     private ArrayList<Observer> observers = new ArrayList<>();
 
     private ContactService(){
@@ -32,10 +32,17 @@ public class ContactService extends Observable implements AbstractContactService
     }
 
     public synchronized static ContactService getInstance(){
-        if (service==null){
-            service = new ContactService();
+        ContactService contactService = service;
+        if(contactService==null){
+            synchronized (ContactService.class){
+                contactService = service;
+                if(contactService==null){
+                    service = contactService = new ContactService();
+                }
+            }
         }
-        return service;}
+        return service;
+    }
 
     private ContactDAO contactDAO;
 
