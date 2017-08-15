@@ -17,7 +17,7 @@ public interface ContactDAO {
      * @param contact
      * @throws Exception
      */
-    void save(Contact contact) throws Exception;
+    void save(Contact contact, int user_id) throws Exception;
 
     /**
      * Метод удаляет контакт из файла Contacts.xml по id
@@ -33,14 +33,14 @@ public interface ContactDAO {
      * @param id
      * @throws Exception
      */
-    void update(Contact contact, int id) throws Exception;
+    void update(Contact contact, int id, int user_id) throws Exception;
 
     /**
      * Метод возвращает множество всех контактов из файла Contacts.xml
      * @return
      * @throws Exception
      */
-    Set<Contact> getAll() throws Exception;
+    Set<Contact> getAll(int user_id) throws Exception;
 
     /**
      * Метод возвращает контакт из файла Contacts.xml по id
@@ -54,5 +54,5 @@ public interface ContactDAO {
 
     void removeContactGroup(int idC, int idG);
 
-    boolean login(String login, String password);
+    int login(String login, String password);
 }

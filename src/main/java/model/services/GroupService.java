@@ -40,8 +40,8 @@ public class GroupService extends Observable implements GroupDAO {
     }
 
     @Override
-    public void save(Group group) throws Exception {
-        groupDAO.save(group);
+    public void save(Group group, int user_id) throws Exception {
+        groupDAO.save(group,user_id);
         updateEvent();
     }
 /*
@@ -58,14 +58,14 @@ public class GroupService extends Observable implements GroupDAO {
     }
 
     @Override
-    public void update(Group group, int id) throws Exception {
-        groupDAO.update(group,id);
+    public void update(Group group, int id, int user_id) throws Exception {
+        groupDAO.update(group,id,user_id);
         updateEvent();
     }
 
     @Override
-    public Set<Group> getAll() throws Exception {
-        return groupDAO.getAll();
+    public Set<Group> getAll(int user_id) throws Exception {
+        return groupDAO.getAll(user_id);
     }
 
     @Override

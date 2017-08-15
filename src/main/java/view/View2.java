@@ -15,8 +15,8 @@ public class View2 implements Observer {
     @Override
     public void update(Observable o, Object arg) {
         try {
-            System.out.println(ContactService.getInstance().getAll());
-            System.out.println(GroupService.getInstance().getAll());
+            System.out.println(ContactService.getInstance().getAll(1));
+            System.out.println(GroupService.getInstance().getAll(1));
         } catch (Exception e) {
             e.printStackTrace();
         }

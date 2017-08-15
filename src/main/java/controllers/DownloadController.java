@@ -25,9 +25,9 @@ public class DownloadController {
      * @throws TransformerException
      * @throws ParserConfigurationException
      */
-    public void addContact(Contact contact) throws TransformerException, ParserConfigurationException {
+    public void addContact(Contact contact, int user_id) throws TransformerException, ParserConfigurationException {
         try {
-            contactService.save(contact);
+            contactService.save(contact, user_id);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -39,9 +39,9 @@ public class DownloadController {
      * @param id
      * @throws MyNotPhoneNumberException
      */
-    public void updateContact(Contact contact, int id) throws MyNotPhoneNumberException{
+    public void updateContact(Contact contact, int id, int user_id) throws MyNotPhoneNumberException{
         try {
-            contactService.update(contact, id);
+            contactService.update(contact, id, user_id);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -63,9 +63,9 @@ public class DownloadController {
      * Метод добавляет новую группу
      * @param group
      */
-    public void addGroup(Group group){
+    public void addGroup(Group group, int user_id){
         try {
-            groupService.save(group);
+            groupService.save(group, user_id);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -88,9 +88,9 @@ public class DownloadController {
      * @param group
      * @param id
      */
-    public void updateGroup(Group group, int id){
+    public void updateGroup(Group group, int id, int user_id){
         try {
-            groupService.update(group,id);
+            groupService.update(group,id, user_id);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -104,7 +104,7 @@ public class DownloadController {
         contactService.removeContactGroup(idC,idG);
     }
 
-    public boolean login(String login, String password) {
+    public int login(String login, String password) {
         return contactService.login(login,password);
     }
 }

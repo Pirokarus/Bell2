@@ -20,7 +20,7 @@ public class JdbcContactDAO implements ContactDAO {
 
 
     @Override
-    public void save(Contact contact) throws Exception {
+    public void save(Contact contact, int user_id) throws Exception {
         Connection connection = null;
         try {
             Class.forName("org.postgresql.Driver");
@@ -33,7 +33,7 @@ public class JdbcContactDAO implements ContactDAO {
             preparedStatement.setString(1, contact.getFirstName());
             preparedStatement.setString(2, contact.getLastName());
             preparedStatement.setString(3, contact.getNumber());
-            preparedStatement.setInt(4, User.getUser_id());
+            preparedStatement.setInt(4, user_id);
 
             preparedStatement.executeUpdate();
 
@@ -83,13 +83,13 @@ public class JdbcContactDAO implements ContactDAO {
     }
 
     @Override
-    public void update(Contact contact, int id) throws Exception {
+    public void update(Contact contact, int id, int user_id) throws Exception {
         removeById(id);
-        save(contact);
+        save(contact, user_id);
     }
 
     @Override
-    public Set<Contact> getAll() throws Exception {
+    public Set<Contact> getAll(int user_id) throws Exception {
         Connection connection = null;
         Set<Contact> contactSet = new HashSet<>();
         try {
@@ -100,7 +100,7 @@ public class JdbcContactDAO implements ContactDAO {
 
             preparedStatement = connection.prepareStatement(
                     "SELECT * FROM contacts WHERE user_id = ?");
-            preparedStatement.setInt(1, User.getUser_id());
+            preparedStatement.setInt(1, user_id);
 
             ResultSet result = preparedStatement.executeQuery();
 
@@ -250,7 +250,7 @@ public class JdbcContactDAO implements ContactDAO {
     }
 
     @Override
-    public boolean login(String login, String password) {
+    public int login(String login, String password) {
         Connection connection = null;
         boolean out = false;
         int id = 0;
@@ -267,14 +267,17 @@ public class JdbcContactDAO implements ContactDAO {
 
             ResultSet result = preparedStatement.executeQuery();
 
-            result.next();
-            id = result.getInt("id");
-            User.setUser_id(id);
+
+            if(result!=null) {
+                result.next();
+                id = result.getInt("id");
+            }
+            //User.setUser_id(id);
 
 
         } catch (Exception ex) {
 
-            Logger.getLogger(JdbcContactDAO.class.getName()).log(Level.SEVERE, null, ex);
+            //Logger.getLogger(JdbcContactDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             if (connection != null) {
                 try {
@@ -288,6 +291,6 @@ public class JdbcContactDAO implements ContactDAO {
         if (id!=0){
             out = true;
         }
-        return out;
+        return id;
     }
 }

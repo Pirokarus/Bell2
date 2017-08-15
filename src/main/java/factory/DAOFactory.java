@@ -6,6 +6,7 @@ import model.dao.DAOTypes;
 import model.dao.GroupDAO;
 
 import model.dao.jdbc.JdbcContactDAO;
+import model.dao.jdbc.JdbcGroupDAO;
 import model.dao.xml.dom.DOMContactDAO;
 import model.dao.xml.dom.DOMGroupDAO;
 import model.dao.xml.jackson.JacksonContactDao;
@@ -16,12 +17,12 @@ import model.dao.xml.sax.SAXGroupDAO;
 public class DAOFactory {
     public static ContactDAO getContactDAO(DAOTypes type){
         switch (type){
-            case DOM:
+            /*case DOM:
                 return new DOMContactDAO();
             case JACKSON:
                 return new JacksonContactDao();
             case SAX:
-                return new SAXContactDAO();
+                return new SAXContactDAO();*/
             case JDBC:
                 return new JdbcContactDAO();
         }
@@ -30,14 +31,14 @@ public class DAOFactory {
 
     public static GroupDAO getGroupDAO(DAOTypes type){
         switch (type){
-            case DOM:
+            /*case DOM:
                 return new DOMGroupDAO();
             case JACKSON:
                 return new JacksonGroupDAO();
             case SAX:
-                return new SAXGroupDAO();
+                return new SAXGroupDAO();*/
             case JDBC:
-                return new JacksonGroupDAO();
+                return new JdbcGroupDAO();
         }
         return null;
     }

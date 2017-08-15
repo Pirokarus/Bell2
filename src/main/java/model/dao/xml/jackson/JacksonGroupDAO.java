@@ -17,7 +17,7 @@ import java.io.IOException;
 import java.util.HashSet;
 import java.util.Set;
 
-public class JacksonGroupDAO implements GroupDAO {
+public class JacksonGroupDAO{}/* implements GroupDAO {
     @Override
     public void save(Group group) throws Exception {
         ClassLoader classLoader = getClass().getClassLoader();
@@ -80,7 +80,7 @@ public class JacksonGroupDAO implements GroupDAO {
                         }
                     }
 */
-                    mapper1.enable(SerializationFeature.INDENT_OUTPUT);
+  /*                  mapper1.enable(SerializationFeature.INDENT_OUTPUT);
                     mapper1.writeValue(new File(xmlPath1),
                             new JacksonContactSet(contactSet));
                 }
@@ -137,7 +137,7 @@ public class JacksonGroupDAO implements GroupDAO {
                         }
                     }
 */
-                    mapper1.enable(SerializationFeature.INDENT_OUTPUT);
+  /*                  mapper1.enable(SerializationFeature.INDENT_OUTPUT);
                     mapper1.writeValue(new File(xmlPath1),
                             new JacksonContactSet(contactSet));
                 }
@@ -232,4 +232,4 @@ public class JacksonGroupDAO implements GroupDAO {
 
         return outGroup;
     }
-}
+}*/

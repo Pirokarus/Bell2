@@ -18,7 +18,7 @@ import java.io.IOException;
 import java.util.HashSet;
 import java.util.Set;
 
-public class SAXContactDAO implements ContactDAO {
+public class SAXContactDAO {/*implements ContactDAO {
     @Override
     public void save(Contact contact) throws Exception {
 
@@ -94,11 +94,11 @@ public class SAXContactDAO implements ContactDAO {
 
                         if (qName.equals("Contact")) {
                             Contact contact = null;
-                            /*try {
+                            try {
                                 contact = (Contact) EntityFactory.getEntity(id, firstName, lastName, number, groupId);
                             } catch (MyNotPhoneNumberException e) {
                                 e.printStackTrace();
-                            }*/
+                            }
                             contactSet.add(contact);
                         }
                     }
@@ -144,5 +144,5 @@ public class SAXContactDAO implements ContactDAO {
     @Override
     public boolean login(String login, String password) {
         return false;
-    }
+    }*/
 }

@@ -17,7 +17,7 @@ public interface GroupDAO {
      * @param group
      * @throws Exception
      */
-    void save(Group group) throws Exception;
+    void save(Group group, int user_id) throws Exception;
 
     /**
      * Метод удаляет группу из файла Groups.xml, если она там записана
@@ -40,14 +40,14 @@ public interface GroupDAO {
      * @param id
      * @throws Exception
      */
-    void update(Group group, int id) throws Exception;
+    void update(Group group, int id, int user_id) throws Exception;
 
     /**
      * Метод возвращает множество всех групп из файла Groups.xml
      * @return
      * @throws Exception
      */
-    Set<Group> getAll() throws Exception;
+    Set<Group> getAll(int user_id) throws Exception;
 
     /**
      * Метод возвращает группу с указаным id из файла Groups.xml

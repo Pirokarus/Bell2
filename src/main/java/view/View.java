@@ -22,20 +22,20 @@ public class View implements Observer{
 
     private DownloadController controller = new DownloadController();
     private EntityFactory entityFactory = new EntityFactory();
-    private boolean log = true;
+    private int user_id = 0;
 
     public void update(Observable model, Object bool){          //Основная функция визуализации
 
         Scanner in = new Scanner(System.in);
         RequestEnum req = RequestEnum.o;                              //Инициализация перечиления команд
 
-        while (log) {
+        while (user_id == 0) {
             System.out.println("Введите логин:");
             String login = in.nextLine();
             System.out.println("Введите пароль");
             String password = in.nextLine();
 
-            log = !controller.login(login, password);
+            user_id = controller.login(login, password);
         }
 
 
@@ -108,7 +108,7 @@ public class View implements Observer{
                     case f:                                     //Команда отображения всех контактов
 
                         try {
-                            System.out.println(ContactService.getInstance().getAll());
+                            System.out.println(ContactService.getInstance().getAll(user_id));
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
@@ -127,7 +127,7 @@ public class View implements Observer{
                     case h:                                     //Команда отображения всех групп
 
                         try {
-                            System.out.println(GroupService.getInstance().getAll());
+                            System.out.println(GroupService.getInstance().getAll(user_id));
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
@@ -174,7 +174,7 @@ public class View implements Observer{
             String lustName = in.nextLine();
             System.out.print("Введите номер: ");
             String number = in.nextLine();
-            controller.addContact((Contact) entityFactory.getEntity(name, lustName, number));
+            controller.addContact((Contact) entityFactory.getEntity(name, lustName, number),user_id);
         }
         catch (Exception e){
             System.out.println("Введите корректный номер");
@@ -187,7 +187,7 @@ public class View implements Observer{
 
             Scanner in = new Scanner(System.in);
             System.out.print("Выберите индекс контакта: ");
-            System.out.println(ContactService.getInstance().getAll());
+            System.out.println(ContactService.getInstance().getAll(user_id));
             int id = in.nextInt();
             String next = in.nextLine();
             System.out.print("Введите имя: ");
@@ -197,12 +197,12 @@ public class View implements Observer{
             System.out.print("Введите номер: ");
             String number = in.nextLine();
 
-            for (Contact contact : ContactService.getInstance().getAll()) {
+            for (Contact contact : ContactService.getInstance().getAll(user_id)) {
                 if (id == contact.getId()) {
                     contact.setFirstName(name);
                     contact.setLastName(lustName);
                     contact.setNumber(number);
-                    controller.updateContact(contact, id);
+                    controller.updateContact(contact, id, user_id);
                 }
             }
 
@@ -217,7 +217,7 @@ public class View implements Observer{
     public void delContact() throws Exception {                                   //Функция удаления контакта
 
         Scanner in = new Scanner(System.in);
-        System.out.println(ContactService.getInstance().getAll());
+        System.out.println(ContactService.getInstance().getAll(user_id));
         System.out.print("Выберите индекс контакта: ");
 
         int id = in.nextInt();
@@ -228,11 +228,11 @@ public class View implements Observer{
     public void addContactGroup() throws Exception {                              //Функция назначения группы контакту
 
         Scanner in = new Scanner(System.in);
-        System.out.println(ContactService.getInstance().getAll());
+        System.out.println(ContactService.getInstance().getAll(user_id));
         System.out.print("Выберите индекс контакта: ");
 
         int idC = in.nextInt();
-        System.out.println(GroupService.getInstance().getAll());
+        System.out.println(GroupService.getInstance().getAll(user_id));
         System.out.print("Выберите индекс группы: ");
 
         int idG = in.nextInt();
@@ -245,12 +245,12 @@ public class View implements Observer{
     public void delContactGroup() throws Exception {                              //Функция удаления группы у контакта
 
         Scanner in = new Scanner(System.in);
-        System.out.println(ContactService.getInstance().getAll());
+        System.out.println(ContactService.getInstance().getAll(user_id));
         System.out.print("Выберите индекс контакта: ");
 
         int idC = in.nextInt();
 
-        for (Contact contact :ContactService.getInstance().getAll()){
+        for (Contact contact :ContactService.getInstance().getAll(user_id)){
             if (contact.getId() == idC){
                 if(!contact.getGroupId().isEmpty()) {
                     System.out.println("Выберите индекс группы");
@@ -264,12 +264,12 @@ public class View implements Observer{
     public void showGroupContact() throws Exception {                             //Функция отображения всех контактов заданной группы
 
         Scanner in = new Scanner(System.in);
-        System.out.println(GroupService.getInstance().getAll());
+        System.out.println(GroupService.getInstance().getAll(user_id));
         System.out.print("Выберите индекс группы: ");
 
         int idG = in.nextInt();
 
-        for (Contact contact :ContactService.getInstance().getAll()){
+        for (Contact contact :ContactService.getInstance().getAll(user_id)){
             if(!contact.getGroupId().isEmpty()) {
                 if (contact.containGroup(idG)){
                     System.out.println(contact);
@@ -283,13 +283,13 @@ public class View implements Observer{
         Scanner in = new Scanner(System.in);
         System.out.print("Введите название: ");
         String name = in.nextLine();
-        controller.addGroup((Group)entityFactory.getEntity(name));
+        controller.addGroup((Group)entityFactory.getEntity(name),user_id);
     }
 
     public void delGroup() throws Exception {                                     //Функция удаления группы
 
         Scanner in = new Scanner(System.in);
-        System.out.println(GroupService.getInstance().getAll());
+        System.out.println(GroupService.getInstance().getAll(user_id));
         System.out.print("Выберите индекс группы: ");
         int id = in.nextInt();
 
@@ -299,16 +299,16 @@ public class View implements Observer{
     public void redGroup() throws Exception {                                     //Функция редактирования группы
 
         Scanner in = new Scanner(System.in);
-        System.out.println(GroupService.getInstance().getAll());
+        System.out.println(GroupService.getInstance().getAll(user_id));
         System.out.print("Выберите индекс группы: ");
         int id = in.nextInt();
         System.out.println("Выберите название: ");
         String name = in.nextLine();
 
-        for (Group group:GroupService.getInstance().getAll()){
+        for (Group group:GroupService.getInstance().getAll(user_id)){
             if (group.getId() == id){
                 group.setName(name);
-                controller.updateGroup(group,id);
+                controller.updateGroup(group,id,user_id);
             }
         }
     }

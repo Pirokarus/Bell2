@@ -16,7 +16,7 @@ public interface AbstractContactService {
      * @param contact
      * @throws Exception
      */
-    void save(Contact contact) throws Exception;
+    void save(Contact contact, int user_id) throws Exception;
 
     /**
      * Метод удаляет контакт
@@ -38,14 +38,14 @@ public interface AbstractContactService {
      * @param id
      * @throws Exception
      */
-    void update(Contact contact, int id) throws Exception;
+    void update(Contact contact, int id, int user_id) throws Exception;
 
     /**
      * Метод возвращает список всех контактов
      * @return
      * @throws Exception
      */
-    Set<Contact> getAll() throws Exception;
+    Set<Contact> getAll(int user_id) throws Exception;
 
     /**
      * Метод возвращает контакт по id

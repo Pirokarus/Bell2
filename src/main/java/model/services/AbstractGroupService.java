@@ -18,7 +18,7 @@ public interface AbstractGroupService {
      * @throws SAXException
      * @throws TransformerException
      */
-    void save(Group group) throws ParserConfigurationException, IOException, SAXException, TransformerException;
+    void save(Group group, int user_id) throws ParserConfigurationException, IOException, SAXException, TransformerException;
 
     /**
      * Метод удаляет группу
@@ -52,7 +52,7 @@ public interface AbstractGroupService {
      * @throws XPathExpressionException
      * @throws TransformerException
      */
-    void update(Group group, int id) throws ParserConfigurationException, IOException, SAXException, XPathExpressionException, TransformerException;
+    void update(Group group, int id, int user_id) throws ParserConfigurationException, IOException, SAXException, XPathExpressionException, TransformerException;
 
     /**
      * Метод возвращает множество всех групп
@@ -62,7 +62,7 @@ public interface AbstractGroupService {
      * @throws SAXException
      * @throws XPathExpressionException
      */
-    Set<Group> getAll() throws ParserConfigurationException, IOException, SAXException, XPathExpressionException;
+    Set<Group> getAll(int user_id) throws ParserConfigurationException, IOException, SAXException, XPathExpressionException;
 
     /**
      * Метод возвращает группу с указанным id

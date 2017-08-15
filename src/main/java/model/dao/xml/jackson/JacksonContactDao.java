@@ -11,7 +11,7 @@ import java.io.File;
 import java.util.HashSet;
 import java.util.Set;
 
-public class JacksonContactDao implements ContactDAO {
+public class JacksonContactDao{} /*implements ContactDAO {
 
     @Override
     public void save(Contact contact) throws Exception {
@@ -181,7 +181,7 @@ public class JacksonContactDao implements ContactDAO {
     }
 
     @Override
-    public boolean login(String login, String password) {
-        return false;
+    public int login(String login, String password) {
+        return 0;
     }
-}
+}*/

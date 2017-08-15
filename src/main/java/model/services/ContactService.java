@@ -37,8 +37,8 @@ public class ContactService extends Observable implements AbstractContactService
         }
     }
 
-    public void save(Contact contact) throws Exception {
-        contactDAO.save(contact);
+    public void save(Contact contact, int user_id) throws Exception {
+        contactDAO.save(contact, user_id);
         updateEvent();
     }
 
@@ -48,14 +48,14 @@ public class ContactService extends Observable implements AbstractContactService
         updateEvent();
     }
 
-    public void update(Contact contact, int id) throws Exception {
+    public void update(Contact contact, int id, int user_id) throws Exception {
 
-        contactDAO.update(contact,id);
+        contactDAO.update(contact, id, user_id);
         updateEvent();
     }
 
-    public Set<Contact> getAll() throws Exception {
-        return contactDAO.getAll();
+    public Set<Contact> getAll(int user_id) throws Exception {
+        return contactDAO.getAll(user_id);
     }
 
     public Contact getById(int id) throws Exception {
@@ -84,7 +84,7 @@ public class ContactService extends Observable implements AbstractContactService
         updateEvent();
     }
 
-    public boolean login(String login, String password) {
+    public int login(String login, String password) {
         return contactDAO.login(login,password);
     }
 }

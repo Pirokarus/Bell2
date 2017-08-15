@@ -16,8 +16,8 @@ import java.io.IOException;
 import java.util.HashSet;
 import java.util.Set;
 
-public class SAXGroupDAO implements GroupDAO {
-    @Override
+public class SAXGroupDAO /*implements GroupDAO*/ {
+    //@Override
     public void save(Group group) throws ParserConfigurationException, IOException, SAXException, TransformerException {
 
     }
@@ -27,17 +27,17 @@ public class SAXGroupDAO implements GroupDAO {
 
     }
 
-    @Override
+    //@Override
     public void removeById(int id) throws ParserConfigurationException, IOException, SAXException, XPathExpressionException, TransformerException {
 
     }
 
-    @Override
+    //@Override
     public void update(Group group, int id) throws ParserConfigurationException, IOException, SAXException, XPathExpressionException, TransformerException {
 
     }
 
-    @Override
+    //@Override
     public Set<Group> getAll() throws Exception {
         final Set<Group> groupSet = new HashSet<Group>();
         ClassLoader classLoader = getClass().getClassLoader();
@@ -94,7 +94,7 @@ public class SAXGroupDAO implements GroupDAO {
 
     }
 
-    @Override
+    //@Override
     public Group getById(int id) throws Exception {
         Set<Group> groupSet = getAll();
 

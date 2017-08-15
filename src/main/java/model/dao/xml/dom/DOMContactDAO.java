@@ -23,7 +23,7 @@ import java.io.*;
 import java.util.HashSet;
 import java.util.Set;
 
-public class DOMContactDAO implements ContactDAO {
+public class DOMContactDAO /*implements ContactDAO */{
 
     public void save(Contact contact) throws ParserConfigurationException, TransformerException, IOException, SAXException {
 
@@ -221,17 +221,17 @@ public class DOMContactDAO implements ContactDAO {
         else*/ return null;
     }
 
-    @Override
+    //@Override
     public void addContactGroup(int idC, int idG) {
 
     }
 
-    @Override
+    //@Override
     public void removeContactGroup(int idC, int idG) {
 
     }
 
-    @Override
+    //@Override
     public boolean login(String login, String password) {
         return false;
     }

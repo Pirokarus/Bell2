@@ -18,7 +18,7 @@ public class JdbcGroupDAO implements GroupDAO {
     private String password = "postgres";
 
     @Override
-    public void save(Group group) throws Exception {
+    public void save(Group group, int user_id) throws Exception {
         Connection connection = null;
         try {
             Class.forName("org.postgresql.Driver");
@@ -29,7 +29,7 @@ public class JdbcGroupDAO implements GroupDAO {
             preparedStatement = connection.prepareStatement(
                     "INSERT INTO groups( name, user_id) values(?,?)");
             preparedStatement.setString(1, group.getName());
-            preparedStatement.setInt(2, User.getUser_id());
+            preparedStatement.setInt(2, user_id);
 
             preparedStatement.executeUpdate();
 
@@ -79,13 +79,13 @@ public class JdbcGroupDAO implements GroupDAO {
     }
 
     @Override
-    public void update(Group group, int id) throws Exception {
+    public void update(Group group, int id, int user_id) throws Exception {
         removeById(id);
-        save(group);
+        save(group, user_id);
     }
 
     @Override
-    public Set<Group> getAll() throws Exception {
+    public Set<Group> getAll(int user_id) throws Exception {
         Connection connection = null;
         Set<Group> groupSet = new HashSet<>();
         try {
@@ -96,7 +96,7 @@ public class JdbcGroupDAO implements GroupDAO {
 
             preparedStatement = connection.prepareStatement(
                     "SELECT * FROM groups WHERE user_id = ?");
-            preparedStatement.setInt(1, User.getUser_id());
+            preparedStatement.setInt(1, user_id);
 
             ResultSet result = preparedStatement.executeQuery();
 

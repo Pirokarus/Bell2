@@ -26,9 +26,9 @@ import java.io.IOException;
 import java.util.HashSet;
 import java.util.Set;
 
-public class DOMGroupDAO implements GroupDAO {
+public class DOMGroupDAO /*implements GroupDAO*/ {
 
-    @Override
+    //@Override
     public void save(Group group) throws ParserConfigurationException, IOException, SAXException, TransformerException {
 
         String xmlPath = getXmlPath();
@@ -127,7 +127,7 @@ public class DOMGroupDAO implements GroupDAO {
 
     }
 
-    @Override
+    //@Override
     public void removeById(int id) throws ParserConfigurationException, IOException, SAXException, XPathExpressionException, TransformerException {
 
         String xmlPath = getXmlPath();
@@ -191,7 +191,7 @@ public class DOMGroupDAO implements GroupDAO {
         saveDocument(document1,xmlPath1);
     }
 
-    @Override
+    //@Override
     public void update(Group group, int id) throws ParserConfigurationException, IOException, SAXException, XPathExpressionException, TransformerException {
 
         String xmlPath = getXmlPath();
@@ -221,7 +221,7 @@ public class DOMGroupDAO implements GroupDAO {
         saveDocument(document,xmlPath);
     }
 
-    @Override
+    //@Override
     public Set<Group> getAll() throws ParserConfigurationException, IOException, SAXException, XPathExpressionException {
 
         String xmlPath = getXmlPath();
@@ -261,7 +261,7 @@ public class DOMGroupDAO implements GroupDAO {
         return out;
     }
 
-    @Override
+    //@Override
     public Group getById(int id) throws ParserConfigurationException, IOException, SAXException, XPathExpressionException {
 
         String xmlPath = getXmlPath();
