@@ -25,7 +25,6 @@ public class JdbcMapper {
                 }
             }
 
-
             contactSet.add((Contact) EntityFactory.getEntity(result.getInt("id"),
                     result.getString("firstName"),result.getString("lastName"),
                     result.getString("number"),groupSet));

@@ -12,16 +12,10 @@ import java.util.*;
 
 public class ContactService extends Observable implements AbstractContactService {
 
-    private static ContactService service = new ContactService();
+    private static ContactService service;
     private ArrayList<Observer> observers = new ArrayList<>();
 
-    private ContactService(){}
-
-    public static ContactService getInstance(){return service;}
-
-    private ContactDAO contactDAO;
-
-    {
+    private ContactService(){
         ClassLoader classLoader = getClass().getClassLoader();
         String path = classLoader.getResource("daotype.properties").getFile();
         try {
@@ -37,32 +31,41 @@ public class ContactService extends Observable implements AbstractContactService
         }
     }
 
-    public void save(Contact contact, int user_id) throws Exception {
+    public synchronized static ContactService getInstance(){
+        if (service==null){
+            service = new ContactService();
+        }
+        return service;}
+
+    private ContactDAO contactDAO;
+
+
+    public synchronized void save(Contact contact, int user_id) throws Exception {
         contactDAO.save(contact, user_id);
         updateEvent();
     }
 
 
-    public void removeById(int id) throws Exception {
+    public synchronized void removeById(int id) throws Exception {
         contactDAO.removeById(id);
         updateEvent();
     }
 
-    public void update(Contact contact, int id, int user_id) throws Exception {
+    public synchronized void update(Contact contact, int id, int user_id) throws Exception {
 
         contactDAO.update(contact, id, user_id);
         updateEvent();
     }
 
-    public Set<Contact> getAll(int user_id) throws Exception {
+    public synchronized Set<Contact> getAll(int user_id) throws Exception {
         return contactDAO.getAll(user_id);
     }
 
-    public Contact getById(int id) throws Exception {
+    public synchronized Contact getById(int id) throws Exception {
         return contactDAO.getById(id);
     }
 
-    public void updateEvent(){
+    public synchronized void updateEvent(){
         for (Observer outlet:this.observers){
             outlet.update(this,true);
         }
@@ -74,17 +77,17 @@ public class ContactService extends Observable implements AbstractContactService
 
     }
 
-    public void addContactGroup(int idC, int idG) {
+    public synchronized void addContactGroup(int idC, int idG) {
         contactDAO.addContactGroup(idC,idG);
         updateEvent();
     }
 
-    public void removeContactGroup(int idC, int idG) {
+    public synchronized void removeContactGroup(int idC, int idG) {
         contactDAO.removeContactGroup(idC,idG);
         updateEvent();
     }
 
-    public int login(String login, String password) {
+    public synchronized int login(String login, String password) {
         return contactDAO.login(login,password);
     }
 }

@@ -17,13 +17,8 @@ public class GroupService extends Observable implements GroupDAO {
     private static GroupService service = new GroupService();
     private Vector<Observer> observers = new Vector<>();
 
-    private GroupService(){}
+    private GroupService(){
 
-    public static GroupService getInstance(){return service;}
-
-    private GroupDAO groupDAO = new JdbcGroupDAO();
-
-    {/*
         ClassLoader classLoader = getClass().getClassLoader();
         String path = classLoader.getResource("daotype.properties").getFile();
         try {
@@ -36,11 +31,19 @@ public class GroupService extends Observable implements GroupDAO {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
-        }*/
+        }
     }
 
+    public synchronized static GroupService getInstance(){
+        if(service==null){
+            service = new GroupService();
+        }
+        return service;}
+
+    private GroupDAO groupDAO = new JdbcGroupDAO();
+
     @Override
-    public void save(Group group, int user_id) throws Exception {
+    public synchronized void save(Group group, int user_id) throws Exception {
         groupDAO.save(group,user_id);
         updateEvent();
     }
@@ -52,34 +55,34 @@ public class GroupService extends Observable implements GroupDAO {
     }*/
 
     @Override
-    public void removeById(int id) throws Exception {
+    public synchronized void removeById(int id) throws Exception {
         groupDAO.removeById(id);
         updateEvent();
     }
 
     @Override
-    public void update(Group group, int id, int user_id) throws Exception {
+    public synchronized void update(Group group, int id, int user_id) throws Exception {
         groupDAO.update(group,id,user_id);
         updateEvent();
     }
 
     @Override
-    public Set<Group> getAll(int user_id) throws Exception {
+    public synchronized Set<Group> getAll(int user_id) throws Exception {
         return groupDAO.getAll(user_id);
     }
 
     @Override
-    public Group getById(int id) throws Exception {
+    public synchronized Group getById(int id) throws Exception {
         return groupDAO.getById(id);
     }
 
-    public void updateEvent(){
+    public synchronized void updateEvent(){
         for (Observer outlet:this.observers){
             outlet.update(this,true);
         }
     }
 
-    public void register(Observer outlet) {
+    public synchronized void register(Observer outlet) {
 
         observers.add(outlet);
 
